@@ -1,0 +1,100 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using WebMvc.Condominio.Data
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@model WebMvc.Condominio.Models.ImovelViewModel
+
+@{
+	ViewData["Title"] = "Editar imóvel";
+}
+
+<h6 id="titulo">@ViewData["Title"]</h6>
+
+<div id="espacador">
+	<form asp-action="EditarImovel" autocomplete="off">
+		<input type="hidden" asp-for="Imovel.Id" />
+		<input type="hidden" asp-for="Imovel.EmpresaId" />
+		<div class="row">
+			<button type="submit" class="btn btn-light">
+				<i class="fa fa-save"></i> Gravar
+			</button>
+			<dl id="espacador"></dl>
+			<a asp-action="DetalharImovel" asp-route-id="@Model.Imovel.Id" class="btn btn-light">
+				<i class="fa fa-close"></i> Sair
+			</a>
+		</div>
+		<h6 id="divisor"></h6>
+
+		<h6 id="divisor">Dados gerais: </h6>
+		<div id="espacador">
+			<label asp-for="Imovel.BlocoQuadra" class="control-label"></label>
+			<input autofocus asp-for="Imovel.BlocoQuadra" />
+			<span asp-validation-for="Imovel.BlocoQuadra" class="text-danger"></span>
+
+			<label id="espacador" asp-for="Imovel.AptoLote" class="control-label"></label>
+			<input asp-for="Imovel.AptoLote" />
+			<span asp-validation-for="Imovel.AptoLote" class="text-danger"></span>
+
+			<label id="espacador" asp-for="Imovel.Box" class="control-label"></label>
+			<input asp-for="Imovel.Box" />
+			<span asp-validation-for="Imovel.Box" class="text-danger"></span>
+		</div>
+
+		<h6 id="divisor">Dados e permanência: </h6>
+		<div id="espacador">
+			<label asp-for="Imovel.Tipo" class="control-label"></label>
+			<input type="radio" value="1" asp-for="Imovel.Tipo" checked /> Proprietário
+			<input type="radio" value="2" asp-for="Imovel.Tipo" /> Inquilino
+			<span asp-validation-for="Imovel.Tipo" class="text-danger"></span>
+
+			<label id="espacador" asp-for="Imovel.DataEntrada" class="control-label"></label>
+			<input asp-for="Imovel.DataEntrada" />
+			<span asp-validation-for="Imovel.DataEntrada" class="text-danger"></span>
+
+			<label id="espacador" asp-for="Imovel.DataSaida" class="control-label"></label>
+			<input asp-for="Imovel.DataSaida" />
+			<span asp-validation-for="Imovel.DataSaida" class="text-danger"></span>
+		</div>
+
+		<h6 id="divisor">Dados do carro: </h6>
+		<div id="espacador">
+			<label asp-for="Imovel.Marca" class="control-label"></label>
+			<input asp-for="Imovel.Marca" />
+			<span asp-validation-for="Imovel.Marca" class="text-danger"></span>
+
+			<label id="espacador" asp-for="Imovel.Modelo" class="control-label"></label>
+			<input asp-for="Imovel.Modelo" />
+			<span asp-validation-for="Imovel.Modelo" class="text-danger"></span>
+
+			<label id="espacador" asp-for="Imovel.Cor" class="control-label"></label>
+			<input asp-for="Imovel.Cor" />
+			<span asp-validation-for="Imovel.Cor" class="text-danger"></span>
+
+			<label id="espacador" asp-for="Imovel.Placa" class="control-label"></label>
+			<input asp-for="Imovel.Placa" />
+			<span asp-validation-for="Imovel.Placa" class="text-danger"></span>
+		</div>
+
+		<h6 id="divisor">Em caso de URGÊNCIA, avisar: </h6>
+		<div id="espacador">
+			<label asp-for="Imovel.ParenteNome" class="control-label"></label>
+			<input asp-for="Imovel.ParenteNome" />
+			<span asp-validation-for="Imovel.ParenteNome" class="text-danger"></span>
+
+			<label id="espacador" asp-for="Imovel.ParenteCelular" class="control-label"></label>
+			<input asp-for="Imovel.ParenteCelular" />
+			<span asp-validation-for="Imovel.ParenteCelular" class="text-danger"></span>
+
+			<label id="espacador" asp-for="Imovel.ParenteTelefone" class="control-label"></label>
+			<input asp-for="Imovel.ParenteTelefone" />
+			<span asp-validation-for="Imovel.ParenteTelefone" class="text-danger"></span>
+		</div>
+	</form>
+</div>
+
+@section Scripts {
+    @{
+	await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+}

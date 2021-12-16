@@ -1,0 +1,31 @@
+﻿@model WebMvc.Vendas.Models.Produto
+
+@{
+    ViewData["Title"] = "Novo produto";
+}
+
+<h6 id="titulo">@ViewData["Title"]</h6>
+
+<div>
+    <form asp-action="Create" autocomplete="off" >
+        <h6 id="divisor">Dados do produto</h6>
+        <div class="form-group">
+            <label id="espacador">Nome <input autofocus asp-for="Nome" /></label>
+            <label id="espacador">Preço <input asp-for="Preco" data-val=false /></label>
+            <label id="espacador">
+                Fornecedor
+                <select asp-for="FornecedorId" asp-items="ViewBag.FornecedorId" style="width:300px;">
+                    <option></option>
+                </select>
+            </label>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Salvar" class="btn btn-success" />
+            <a asp-action="Index" class="btn btn-warning">Cancelar</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

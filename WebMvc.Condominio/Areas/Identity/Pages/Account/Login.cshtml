@@ -1,0 +1,27 @@
+﻿@page
+@model LoginModel
+@{
+	ViewData["Title"] = "Conecte-se"; 
+}
+
+<h4 class="text-center">Informe usuário e senha</h4>
+
+<div class="text-center">
+	<form id="account" method="post">
+		<div asp-validation-summary="All" class="text-danger"></div>
+		<div>
+			<input autofocus asp-for="Input.UserName" placeholder="Usuário" style="width:200px;" autocomplete="off" >
+		</div>
+		<div>
+			<input asp-for="Input.Password" placeholder="Senha" style="width:200px;" autocomplete="off" >
+		</div>
+		<h6></h6>
+		<div>
+			<button type="submit" class="btn btn-primary">Entrar</button>
+		</div>
+	</form>
+</div>
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+}

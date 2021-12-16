@@ -1,0 +1,47 @@
+﻿@model WebMvc.Condominio.Models.ImovelViewModel
+
+<h6 id="divisor">Lista de moradores do imóvel </h6>
+
+<table class="table table-hover">
+	<thead>
+		<tr class="table-success">
+			<th>
+				@Html.DisplayNameFor(model => model.Morador.Nome)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Morador.Celular)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Morador.Email)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Morador.Telefone)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Morador.Foto)
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var obj in Model.Moradores)
+		{
+			<tr class="table-active">
+				<td>
+					@Html.DisplayFor(modelItem => obj.Nome)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => obj.Celular)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => obj.Email)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => obj.Telefone)
+				</td>
+				<td>
+					<img src="~/Imagens/@obj.Foto" height="200" width="150" asp-append-version="true" />
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>

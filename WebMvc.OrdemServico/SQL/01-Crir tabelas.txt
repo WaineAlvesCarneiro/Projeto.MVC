@@ -1,0 +1,62 @@
+﻿BEGIN TRANSACTION;
+GO
+
+CREATE TABLE [Cliente] (
+    [Id] int NOT NULL IDENTITY,
+    [Nome] varchar(50) NOT NULL,
+    [Cpf] varchar(11) NOT NULL,
+    [Celular] varchar(16) NOT NULL,
+    [Telefone] varchar(16) NULL,
+    [Email] varchar(50) NOT NULL,
+    [Cep] varchar(12) NULL,
+    [Uf] varchar(30) NULL,
+    [Cidade] varchar(50) NULL,
+    [Endereco] varchar(50) NULL,
+    [Complemento] varchar(50) NULL,
+    CONSTRAINT [PK_Cliente] PRIMARY KEY ([Id])
+);
+GO
+
+CREATE TABLE [Servico] (
+    [Id] int NOT NULL IDENTITY,
+    [NomeServico] varchar(30) NOT NULL,
+    [Preco] decimal(18,2) NOT NULL,
+    CONSTRAINT [PK_Servico] PRIMARY KEY ([Id])
+);
+GO
+
+CREATE TABLE [Os] (
+    [Id] int NOT NULL IDENTITY,
+    [DtAbertura] datetime2 NOT NULL,
+    [ClienteId] int NOT NULL,
+    [TotalOs] decimal(18,2) NOT NULL,
+    [DtConcluido] datetime2 NULL,
+    CONSTRAINT [PK_Os] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_Os_Cliente_ClienteId] FOREIGN KEY ([ClienteId]) REFERENCES [Cliente] ([Id]) ON DELETE CASCADE
+);
+GO
+
+CREATE TABLE [Prestado] (
+    [Id] int NOT NULL IDENTITY,
+    [OsId] int NOT NULL,
+    [ServicoId] int NOT NULL,
+    [QtdeServico] int NOT NULL,
+    [ValorItem] decimal(18,2) NOT NULL,
+    [TotalItem] decimal(18,2) NOT NULL,
+    CONSTRAINT [PK_Prestado] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_Prestado_Os_OsId] FOREIGN KEY ([OsId]) REFERENCES [Os] ([Id]) ON DELETE CASCADE,
+    CONSTRAINT [FK_Prestado_Servico_ServicoId] FOREIGN KEY ([ServicoId]) REFERENCES [Servico] ([Id]) ON DELETE CASCADE
+);
+GO
+
+CREATE INDEX [IX_Os_ClienteId] ON [Os] ([ClienteId]);
+GO
+
+CREATE INDEX [IX_Prestado_OsId] ON [Prestado] ([OsId]);
+GO
+
+CREATE INDEX [IX_Prestado_ServicoId] ON [Prestado] ([ServicoId]);
+GO
+
+COMMIT;
+GO

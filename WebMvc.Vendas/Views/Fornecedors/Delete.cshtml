@@ -1,0 +1,68 @@
+﻿@model WebMvc.Vendas.Models.Fornecedor
+
+@{
+    ViewData["Title"] = "Excluir o fornecedor";
+}
+
+<h6 id="titulo">Tem certeza que deseja @ViewData["Title"]: @Html.DisplayFor(model => model.Id)</h6>
+<h6 id="divisor">Dados do fornecedor</h6>
+<div id="espacador">
+    <dl class="row">
+        <dt id="espacador">Razão Social </dt>
+        <dd id="espacador">
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+        <dt id="espacador">CNPJ
+        <dd id="espacador">
+            @Html.DisplayFor(model => model.Cnpj)
+        </dd>
+    </dl>
+</div>
+<h6 id="divisor">Dados de contato</h6>
+<div id="espacador">
+    <dl class="row">
+        <dt id="espacador">Celular </dt>
+        <dd id="espacador">
+            @Html.DisplayFor(model => model.Celular)
+        </dd>
+        <dt id="espacador">Telefone </dt>
+        <dd id="espacador">
+            @Html.DisplayFor(model => model.Telefone)
+        </dd>
+        <dt id="espacador">E-mail </dt>
+        <dd id="espacador">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+    </dl>
+</div>
+<h6 id="divisor">Dados de endereço</h6>
+<div id="espacador">
+    <dl class="row">
+        <dt id="espacador">CEP </dt>
+        <dd id="espacador">
+            @Html.DisplayFor(model => model.Cep)
+        </dd>
+        <dt id="espacador">UF </dt>
+        <dd id="espacador">
+            @Html.DisplayFor(model => model.Uf)
+        </dd>
+        <dt id="espacador">Cidade </dt>
+        <dd id="espacador">
+            @Html.DisplayFor(model => model.Cidade)
+        </dd>
+        <dt id="espacador">Endereço </dt>
+        <dd id="espacador">
+            @Html.DisplayFor(model => model.Endereco)
+        </dd>
+        <dt id="espacador">Complemento </dt>
+        <dd id="espacador">
+            @Html.DisplayFor(model => model.Complemento)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Excluir" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-warning">Cancelar</a>
+    </form>
+</div>

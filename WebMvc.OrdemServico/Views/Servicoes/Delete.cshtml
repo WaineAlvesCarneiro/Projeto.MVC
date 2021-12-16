@@ -1,0 +1,28 @@
+﻿@model WebMvc.OrdemServico.Models.Servico
+
+@{
+    ViewData["Title"] = "Excluir o serviço";
+}
+
+<h6 id="titulo">Tem certeza que deseja @ViewData["Title"] código @Html.DisplayFor(model => model.Id)</h6>
+
+<h6 id="divisor">Dados do serviço</h6>
+<div id="espacador">
+    <dl class="row">
+        <dt id="espacador">Serviço </dt>
+        <dd id="espacador">
+            @Html.DisplayFor(model => model.NomeServico)
+        </dd>
+        <dt id="espacador">Preço </dt>
+        <dd id="espacador">
+            @Html.DisplayFor(model => model.Preco)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Excluir" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-warning">Cancelar</a>
+    </form>
+</div>
+

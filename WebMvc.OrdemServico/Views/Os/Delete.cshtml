@@ -1,0 +1,70 @@
+﻿@model WebMvc.OrdemServico.Models.OsPrestadoViewModel
+
+@{
+    ViewData["Title"] = "Excluir O.S.";
+}
+
+<h6 id="titulo">Tem certeza que deseja @ViewData["Title"] código @Html.DisplayFor(model => model.Os.Id)</h6>
+
+<div id="espacador">
+    <dl class="row">
+        <dt id="espacador">Data Abertura </dt>
+        <dd id="espacador">
+            @Html.DisplayFor(model => model.Os.DtAbertura)
+        </dd>
+        <dt id="espacador">Cliente </dt>
+        <dd id="espacador">
+            @Html.DisplayFor(model => model.Os.Cliente.Nome)
+        </dd>
+        <dt id="espacador">Total O.S. </dt>
+        <dd id="espacador">
+            @Html.DisplayFor(model => model.Os.TotalOs)
+        </dd>
+        <dt id="espacador">Data Conclusão </dt>
+        <dd id="espacador">
+            @Html.DisplayFor(model => model.Os.DtConcluido)
+        </dd>
+    </dl>
+</div>
+<h6 id="divisor">Lista de serviços</h6>
+<div>
+    <table class="table table-hover">
+        <thead>
+            <tr class="table-success">
+                <th>Código</th>
+                <th>Serviço</th>
+                <th>Quantidade</th>
+                <th>Valor Item</th>
+                <th>Total Item</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var obj in Model.Prestadoes)
+            {
+                <tr class="table-active">
+                    <td>
+                        @Html.DisplayFor(modelItem => obj.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => obj.Servico.NomeServico)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => obj.QtdeServico)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => obj.ValorItem)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => obj.TotalItem)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Os.Id" />
+        <input type="submit" value="Excluir" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-warning">Cancelar</a>
+    </form>
+</div>

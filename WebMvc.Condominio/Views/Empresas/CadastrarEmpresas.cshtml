@@ -1,0 +1,99 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using WebMvc.Condominio.Data
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@model WebMvc.Condominio.Models.Empresa
+
+@{
+	ViewData["Title"] = "Nova empresa";
+}
+
+<h6 id="titulo">@ViewData["Title"]</h6>
+
+<div id="espacador">
+	<form asp-action="CadastrarEmpresas">
+		<div class="row">
+			<button type="submit" class="btn btn-light">
+				<i class="fa fa-save"></i> Gravar
+			</button>
+			<dl id="espacador"></dl>
+			<a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-light">
+				<i class="fa fa-close"></i> Sair
+			</a>
+		</div>
+
+		<h6 id="divisor"></h6>
+
+		<h6 id="divisor">Dados gerais: </h6>
+		<div id="espacador">
+			<label asp-for="RazaoSocial" class="control-label"></label>
+			<input autofocus asp-for="RazaoSocial" autocomplete="off" style="width:350px;" />
+			<span asp-validation-for="RazaoSocial" class="text-danger"></span>
+
+			<label id="espacador" asp-for="Fantasia" class="control-label"></label>
+			<input asp-for="Fantasia" autocomplete="off" style="width:350px;" />
+			<span asp-validation-for="Fantasia" class="text-danger"></span>
+			<br />
+
+			<label asp-for="Cnpj" class="control-label"></label>
+			<input asp-for="Cnpj" autocomplete="off" />
+			<span asp-validation-for="Cnpj" class="text-danger"></span>
+
+			<label id="espacador" asp-for="Tipo" class="control-label"></label>
+			<input type="radio" value="1" asp-for="Tipo" checked /> Apartamentos
+			<input type="radio" value="2" asp-for="Tipo" /> Casas
+			<span asp-validation-for="Tipo" class="text-danger"></span>
+		</div>
+
+		<h6 id="divisor">Dados do responsável: </h6>
+		<div id="espacador">
+			<label asp-for="NomeResposavel" class="control-label"></label>
+			<input asp-for="NomeResposavel" autocomplete="off" style="width:350px;" />
+			<span asp-validation-for="NomeResposavel" class="text-danger"></span>
+
+			<label id="espacador" asp-for="Celular" class="control-label"></label>
+			<input asp-for="Celular" autocomplete="off" />
+			<span asp-validation-for="Celular" class="text-danger"></span>
+			<br />
+
+			<label asp-for="Email" class="control-label"></label>
+			<input asp-for="Email" autocomplete="off" style="width:350px;" />
+			<span asp-validation-for="Email" class="text-danger"></span>
+
+			<label id="espacador" asp-for="Telefone" class="control-label"></label>
+			<input asp-for="Telefone" autocomplete="off" />
+			<span asp-validation-for="Telefone" class="text-danger"></span>
+		</div>
+
+		<h6 id="divisor">Dados de endereço: </h6>
+		<div id="espacador">
+			<label asp-for="Cep" class="control-label"></label>
+			<input asp-for="Cep" autocomplete="off" />
+			<span asp-validation-for="Cep" class="text-danger"></span>
+
+			<label id="espacador" asp-for="Uf" class="control-label"></label>
+			<input asp-for="Uf" autocomplete="off" />
+			<span asp-validation-for="Uf" class="text-danger"></span>
+
+			<label id="espacador" asp-for="Cidade" class="control-label"></label>
+			<input asp-for="Cidade" autocomplete="off" style="width:350px;" />
+			<span asp-validation-for="Cidade" class="text-danger"></span>
+			<br />
+
+			<label asp-for="Endereco" class="control-label"></label>
+			<input asp-for="Endereco" autocomplete="off" style="width:350px;" />
+			<span asp-validation-for="Endereco" class="text-danger"></span>
+
+			<label id="espacador" asp-for="Complemento" class="control-label"></label>
+			<input asp-for="Complemento" autocomplete="off" style="width:350px;" />
+			<span asp-validation-for="Complemento" class="text-danger"></span>
+		</div>
+	</form>
+</div>
+
+@section Scripts {
+    @{
+	await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+}

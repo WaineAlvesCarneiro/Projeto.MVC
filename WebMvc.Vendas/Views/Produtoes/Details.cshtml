@@ -1,0 +1,29 @@
+﻿@model WebMvc.Vendas.Models.Produto
+@{
+	ViewData["Title"] = "Detalhes do produto";
+}
+
+<h6 id="titulo">@ViewData["Title"] código @Html.DisplayFor(model => model.Id)</h6>
+
+<h6 id="divisor">Dados do produto</h6>
+<div id="espacador">
+	<dl class="row">
+		<dt id="espacador">Nome </dt>
+		<dd id="espacador">
+			@Html.DisplayFor(model => model.Nome)
+		</dd>
+		<dt id="espacador">Preço </dt>
+		<dd id="espacador">
+			@Html.DisplayFor(model => model.Preco)
+		</dd>
+		<dt id="espacador">Fornecedor </dt>
+		<dd id="espacador">
+			@Html.DisplayFor(model => model.Fornecedores.Nome)
+		</dd>
+	</dl>
+</div>
+
+<div>
+	<a asp-action="Edit" class="btn btn-info" asp-route-id="@Model.Id">Editar</a>
+	<a asp-action="Index" class="btn btn-warning">Fechar</a>
+</div>

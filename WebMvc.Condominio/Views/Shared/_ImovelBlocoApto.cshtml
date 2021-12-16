@@ -1,0 +1,37 @@
+﻿@model WebMvc.Condominio.Models.ImovelViewModel
+
+<h6 id="divisor">Dados do imóvel </h6>
+<div id="espacador">
+	<dl class="row">
+		<dt id="espacador">Bloco/Quadra </dt>
+		<dd id="espacador">
+			@Html.DisplayFor(model => model.Imovel.BlocoQuadra)
+		</dd>
+		<dt id="espacador">Apto/Lote </dt>
+		<dd id="espacador">
+			@Html.DisplayFor(model => model.Imovel.AptoLote)
+		</dd>
+		<dt id="espacador">Box </dt>
+		<dd id="espacador">
+			@Html.DisplayFor(model => model.Imovel.Box)
+		</dd>
+	</dl>
+</div>
+
+<h6 id="divisor">Dados gerais do imóvel </h6>
+<div id="espacador">
+	<dl class="row">
+		<dt id="espacador">Tipo </dt>
+		<dd id="espacador">
+			@Html.DisplayFor(model => model.Imovel.Tipo)
+		</dd>
+		<dt id="espacador">Data entrada </dt>
+		<dd id="espacador">
+			@Html.DisplayFor(model => model.Imovel.DataEntrada)
+		</dd>
+		<dt id="espacador">Data saída </dt>
+		<dd id="espacador">
+			@Html.DisplayFor(model => model.Imovel.DataSaida)
+		</dd>
+	</dl>
+</div>

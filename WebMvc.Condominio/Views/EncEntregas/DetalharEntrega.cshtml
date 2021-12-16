@@ -1,0 +1,66 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using WebMvc.Condominio.Data
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@model WebMvc.Condominio.Models.ImovelViewModel
+
+@{
+	ViewData["Title"] = "Detalhes entrega";
+}
+
+<h6 id="titulo">@ViewData["Title"]</h6>
+
+<div id="espacador">
+	<div class="row">
+		@if (User.IsInRole("Suporte") || User.IsInRole("AdminCond"))
+		{
+			<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal-default">
+				<i class="fa fa-trash"></i> Excluir
+			</button>
+		}
+		<dl id="espacador"></dl>
+		<a class="btn btn-light" onclick="goBack()">
+			<i class="fa fa-close"></i> Sair
+		</a>
+	</div>
+
+	<dl id="espacador"></dl>
+
+	<partial name="_ImovelBlocoApto" />
+
+	<dl id="espacador"></dl>
+
+	<partial name="_DetalharRecebida" />
+
+	<h6 id="divisor">Dados da entrega e morador que recebeu a encomenda: </h6>
+	<div id="espacador">
+		<dl class="row">
+			<dt id="espacador">Documento do morador </dt>
+			<dd id="espacador">
+				@Html.DisplayFor(model => model.EncEntrega.DocumentoDoMorador)
+			</dd>
+			<dt id="espacador">Data entrega </dt>
+			<dd id="espacador">
+				@Html.DisplayFor(model => model.EncEntrega.DataEntrega)
+			</dd>
+			<dt id="espacador">Morador recebeu </dt>
+			<dd id="espacador">
+				@Html.DisplayFor(model => model.MoradorRecebeuEntrega.Nome)
+			</dd>
+		</dl>
+	</div>
+
+	<h6 id="divisor">Foto do morador que recebeu a emcomenda: </h6>
+	<div id="espacador">
+		<dl class="row">
+			<dt>
+				<img src="~/Imagens/@Html.DisplayFor(model => model.EncEntrega.Foto)" height="200" width="150" alt="" />
+			</dt>
+		</dl>
+	</div>
+
+	<div class="modal fade" id="modal-default">
+		<partial name="ExcluirEntrega" />
+	</div>
+</div>

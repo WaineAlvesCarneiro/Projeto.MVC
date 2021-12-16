@@ -1,0 +1,107 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using WebMvc.Condominio.Data
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@model WebMvc.Condominio.Models.Empresa
+
+@{
+	ViewData["Title"] = "Detalhes empresa";
+}
+
+<h6 id="titulo">@ViewData["Title"]</h6>
+
+<div id="espacador">
+	<div class="row">
+		@if (User.IsInRole("Suporte"))
+		{
+			<a asp-action="EditarEmpresa" asp-route-id="@Model.Id" class="btn btn-light">
+				<i class="fa fa-edit"></i> Editar
+			</a>
+			<dl id="espacador"></dl>
+			<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal-default">
+				<i class="fa fa-trash"></i> Excluir
+			</button>
+			<dl id="espacador"></dl>
+			<a asp-action="ListarEmpresas" class="btn btn-light">
+				<i class="fa fa-close"></i> Sair
+			</a>
+		}
+	</div>
+
+	<h6 id="divisor"></h6>
+
+	<h6 id="divisor">Dados gerais: </h6>
+	<div id="espacador">
+		<dl class="row">
+			<dt id="espacador">Razão Social </dt>
+			<dd id="espacador">
+				@Html.DisplayFor(model => model.RazaoSocial)
+			</dd>
+			<dt id="espacador">Fantasia </dt>
+			<dd id="espacador">
+				@Html.DisplayFor(model => model.Fantasia)
+			</dd>
+			<dt id="espacador">CNPJ
+			<dd id="espacador">
+					@Html.DisplayFor(model => model.Cnpj)
+			</dd>
+			<dt id="espacador">Tipo </dt>
+			<dd id="espacador">
+					@Html.DisplayFor(model => model.Tipo)
+			</dd>
+		</dl>
+	</div>
+
+	<h6 id="divisor">Dados do responsável: </h6>
+	<div id="espacador">
+		<dl class="row">
+			<dt id="espacador">Nome </dt>
+			<dd id="espacador">
+				@Html.DisplayFor(model => model.NomeResposavel)
+			</dd>
+			<dt id="espacador">Celular </dt>
+			<dd id="espacador">
+				@Html.DisplayFor(model => model.Celular)
+			</dd>
+			<dt id="espacador">Telefone </dt>
+			<dd id="espacador">
+				@Html.DisplayFor(model => model.Telefone)
+			</dd>
+			<dt id="espacador">E-mail </dt>
+			<dd id="espacador">
+				@Html.DisplayFor(model => model.Email)
+			</dd>
+		</dl>
+	</div>
+
+	<h6 id="divisor">Dados de endereço: </h6>
+	<div id="espacador">
+		<dl class="row">
+			<dt id="espacador">CEP </dt>
+			<dd id="espacador">
+				@Html.DisplayFor(model => model.Cep)
+			</dd>
+			<dt id="espacador">Complemento </dt>
+			<dd id="espacador">
+				@Html.DisplayFor(model => model.Complemento)
+			</dd>
+			<dt id="espacador">Endereco </dt>
+			<dd id="espacador">
+				@Html.DisplayFor(model => model.Endereco)
+			</dd>
+			<dt id="espacador">Cidade </dt>
+			<dd id="espacador">
+				@Html.DisplayFor(model => model.Cidade)
+			</dd>
+			<dt id="espacador">UF </dt>
+			<dd id="espacador">
+				@Html.DisplayFor(model => model.Uf)
+			</dd>
+		</dl>
+	</div>
+
+	<div class="modal fade" id="modal-default">
+		<partial name="ExcluirEmpresa" />
+	</div>
+</div>

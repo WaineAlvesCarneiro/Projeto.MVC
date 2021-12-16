@@ -1,0 +1,76 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using WebMvc.Condominio.Data
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@model WebMvc.Condominio.Models.ImovelViewModel
+
+@{
+	ViewData["Title"] = "Detalhes prestador";
+}
+
+<h6 id="titulo">@ViewData["Title"]</h6>
+
+<div id="espacador">
+	<div class="row">
+		@if (User.IsInRole("Suporte") || User.IsInRole("AdminCond"))
+		{
+			<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal-default">
+				<i class="fa fa-trash"></i> Excluir
+			</button>
+		}
+		<dl id="espacador"></dl>
+		<a class="btn btn-light" onclick="goBack()">
+			<i class="fa fa-close"></i> Sair
+		</a>
+	</div>
+
+	<h6 id="divisor"></h6>
+
+	<partial name="_ImovelBlocoApto" />
+
+	<h6 id="divisor">Dados gerais: </h6>
+	<div id="espacador">
+		<dl class="row">
+			<dt id="espacador">Nome </dt>
+			<dd id="espacador">
+				@Html.DisplayFor(model => model.Prestador.Nome)
+			</dd>
+			<dt id="espacador">Documento </dt>
+			<dd id="espacador">
+				@Html.DisplayFor(model => model.Prestador.Documento)
+			</dd>
+			<dt id="espacador">Empresa </dt>
+			<dd id="espacador">
+				@Html.DisplayFor(model => model.Prestador.EmpresaPrestadora)
+			</dd>
+		</dl>
+	</div>
+
+	<h6 id="divisor">Data e horários: </h6>
+	<div id="espacador">
+		<dl class="row">
+			<dt id="espacador">Data entrada </dt>
+			<dd id="espacador">
+				@Html.DisplayFor(model => model.Prestador.DataHoraEntrada)
+			</dd>
+			<dt id="espacador">Data saída </dt>
+			<dd id="espacador">
+				@Html.DisplayFor(model => model.Prestador.DataHoraSaida)
+			</dd>
+		</dl>
+	</div>
+
+	<h6 id="divisor">Foto do visitante: </h6>
+	<div id="espacador">
+		<dl class="row">
+			<dt>
+				<img src="~/Imagens/@Html.DisplayFor(model => model.Prestador.Foto)" height="200" width="150" alt="" />
+			</dt>
+		</dl>
+	</div>
+
+	<div class="modal fade" id="modal-default">
+		<partial name="ExcluirPrestador" />
+	</div>
+</div>

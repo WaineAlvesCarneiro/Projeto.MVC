@@ -1,0 +1,24 @@
+﻿@model WebMvc.Vendas.Models.Status
+
+@{
+    ViewData["Title"] = "Excluir o status";
+}
+
+<h6 id="titulo">Tem certeza que deseja @ViewData["Title"] código @Html.DisplayFor(model => model.Id)</h6>
+
+<h6 id="divisor">Dados do status</h6>
+<div id="espacador">
+    <dl class="row">
+        <dt id="espacador">Nome Status </dt>
+        <dd id="espacador">
+            @Html.DisplayFor(model => model.NomeStatus)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Excluir" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-warning">Cancelar</a>
+    </form>
+</div>
+

@@ -1,0 +1,28 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using WebMvc.Condominio.Data
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<ul class="navbar-nav">
+	@if (SignInManager.IsSignedIn(User))
+	{
+		<li>
+			<a class="nav-link text-primary" asp-area="" asp-controller="Imovels" asp-action="ListarImoveis">Imoveis</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link text-primary" asp-area="" asp-controller="Moradors" asp-action="ListarMoradores">Moradores</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link text-primary" asp-area="" asp-controller="Visitantes" asp-action="ListarVisitantes">Visitantes</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link text-primary" asp-area="" asp-controller="Prestadors" asp-action="ListarPrestador">Prestadores</a>
+		</li>
+		<li>
+			<a class="nav-link text-primary" asp-area="" asp-controller="EncRecebidas" asp-action="ListarRecebidas">Recebidas</a>
+		</li>
+		<li>
+			<a class="nav-link text-primary" asp-area="" asp-controller="EncEntregas" asp-action="ListarEntregas">Entregas</a>
+		</li>
+	}
+</ul>

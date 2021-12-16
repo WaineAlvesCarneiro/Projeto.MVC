@@ -1,0 +1,82 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using WebMvc.Condominio.Data
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@model IEnumerable<WebMvc.Condominio.Models.Imovel>
+
+@{
+	ViewData["Title"] = "Lista imóveis";
+}
+
+<p><a asp-action="CadastrarImovel" class="btn btn-warning" >Adicionar</a></p>
+
+<div>
+	<form role="search" autocomplete="off">
+		<label>Bloco/Quadra</label>
+		<input autofocus type="text" name="blocoquadra" value=@ViewData["bloco"] />
+		<label id="espacador"></label>
+		<label>Apto/Lote</label>
+		<input type="text" name="aptolote" value=@ViewData["apto"] />
+		<label id="espacador"></label>
+		<label>Com data de Saída do imóvel?</label>
+		<label for="saida">
+			@Html.CheckBox("saida", ViewData["comDataSaida"])
+		</label>
+		<label id="espacador"></label>
+		<button type="submit" class="btn btn-primary" >Pesquisar</button>
+	</form>
+</div>
+<br />
+
+<table class="table table-hover">
+	<thead>
+		<tr class="table-success">
+			<th>
+				@Html.DisplayNameFor(model => model.BlocoQuadra)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.AptoLote)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Tipo)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.DataEntrada)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.DataSaida)
+			</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr class="table-active">
+				<td>
+					@Html.DisplayFor(modelItem => item.BlocoQuadra)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.AptoLote)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Tipo)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.DataEntrada)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.DataSaida)
+				</td>
+				<td class="text-center">
+					<a asp-action="DetalharImovel" title="Detalhar Imóvel" class="btn btn-primary" asp-route-id="@item.Id">
+						<spam class="fa fa-search"></spam>
+					</a>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
+
+

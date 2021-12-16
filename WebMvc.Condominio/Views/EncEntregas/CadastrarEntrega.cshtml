@@ -1,0 +1,63 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using WebMvc.Condominio.Data
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@model WebMvc.Condominio.Models.ImovelViewModel
+
+@{
+	ViewData["Title"] = "Entregar encomenda";
+}
+
+<h6 id="titulo">@ViewData["Title"]</h6>
+
+<div id="espacador">
+	<form asp-controller="EncEntregas" asp-action="CadastrarEntrega" enctype="multipart/form-data" autocomplete="off">
+		<input type="hidden" asp-for="EncRecebida.Id" />
+		<input type="hidden" asp-for="EncRecebida.EmpresaId" />
+		<input type="hidden" asp-for="EncRecebida.ImovelId" />
+		<input type="hidden" asp-for="EncRecebida.MoradorId" />
+		<input type="hidden" asp-for="EncRecebida.CodigoRastreio" />
+		<input type="hidden" asp-for="EncRecebida.TipoEncomenda" />
+		<input type="hidden" asp-for="EncRecebida.DataRecebimento" />
+
+		<div class="row">
+			<button type="submit" class="btn btn-light">
+				<i class="fa fa-save"></i> Gravar
+			</button>
+			<dl id="espacador"></dl>
+			<a asp-controller="EncRecebidas" asp-action="DetalharRecebida" asp-route-id="@Model.EncRecebida.Id" class="btn btn-light">
+				<i class="fa fa-close"></i> Sair
+			</a>
+		</div>
+		<h6 id="divisor"></h6>
+
+		<partial name="_ImovelBlocoApto" />
+
+		<partial name="_DetalharRecebida" />
+
+		<h6 id="divisor">Dados gerais: </h6>
+		<div id="espacador">
+			<label asp-for="EncEntrega.MoradorId" class="control-label"></label>
+			<select autofocus asp-for="EncEntrega.MoradorId" style="width:350px;" asp-items="@(new SelectList(Model.Moradores,"Id", "Nome"))">
+				<option></option>
+			</select>
+			<span asp-validation-for="EncEntrega.MoradorId" class="text-danger"></span>
+
+			<label id="espacador" asp-for="EncEntrega.DocumentoDoMorador" class="control-label"></label>
+			<input asp-for="EncEntrega.DocumentoDoMorador" />
+			<span asp-validation-for="EncEntrega.DocumentoDoMorador" class="text-danger"></span>
+			
+			<h6 id="divisor"></h6>
+			<label asp-for="EncEntrega.FotoFile" class="control-label"></label>
+			<input asp-for="EncEntrega.FotoFile" accept="image/*" />
+			<span asp-validation-for="EncEntrega.FotoFile" class="text-danger"></span>
+		</div>
+	</form>
+</div>
+
+@section Scripts {
+    @{
+	await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+}

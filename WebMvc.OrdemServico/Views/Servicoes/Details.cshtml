@@ -1,0 +1,25 @@
+﻿@model WebMvc.OrdemServico.Models.Servico
+@{
+	ViewData["Title"] = "Detalhes do serviço";
+}
+
+<h6 id="titulo">@ViewData["Title"] código @Html.DisplayFor(model => model.Id)</h6>
+
+<h6 id="divisor">Dados do serviço</h6>
+<div id="espacador">
+	<dl class="row">
+		<dt id="espacador">Serviço </dt>
+		<dd id="espacador">
+			@Html.DisplayFor(model => model.NomeServico)
+		</dd>
+		<dt id="espacador">Preço </dt>
+		<dd id="espacador">
+			@Html.DisplayFor(model => model.Preco)
+		</dd>
+	</dl>
+</div>
+
+<div>
+	<a asp-action="Edit" class="btn btn-info" asp-route-id="@Model.Id">Editar</a>
+	<a asp-action="Index" class="btn btn-warning">Fechar</a>
+</div>

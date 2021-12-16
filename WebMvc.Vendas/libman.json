@@ -1,0 +1,14 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "font-awesome@5.15.4",
+      "destination": "wwwroot/lib/font-awesome/"
+    },
+    {
+      "library": "jquery.mask@1.14.16",
+      "destination": "wwwroot/lib/jquery.mask/"
+    }
+  ]
+}

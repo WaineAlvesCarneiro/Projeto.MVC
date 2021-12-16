@@ -1,0 +1,64 @@
+﻿@page
+@model RegisterModel
+@{
+	ViewData["Title"] = "Cadastro de Usuário";
+	var roles = (List<IdentityRole>)ViewData["roles"];
+}
+
+<h6 id="titulo">@ViewData["Title"]</h6>
+
+<div id="espacador">
+	<form asp-route-returnUrl="@Model.ReturnUrl" method="post" autocomplete="off">
+		<div class="row">
+			<button type="submit" class="btn btn-light">
+				<i class="fa fa-save"></i> Gravar
+			</button>
+			<dl id="espacador"></dl>
+			<a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-light">
+				<i class="fa fa-close"></i> Sair
+			</a>
+		</div>
+
+		<h6 id="divisor"></h6>
+
+		<h6 id="divisor">Dados gerais: </h6>
+		<div id="espacador">
+			<label asp-for="Input.UserName"></label>
+			<input asp-for="Input.UserName" autofocus />
+			<span asp-validation-for="Input.UserName" class="text-danger"></span>
+
+			<label id="espacador" asp-for="Input.Password"></label>
+			<input asp-for="Input.Password" />
+			<span asp-validation-for="Input.Password" class="text-danger"></span>
+
+			<label id="espacador" asp-for="Input.Email"></label>
+			<input asp-for="Input.Email" />
+			<span asp-validation-for="Input.Email" class="text-danger"></span>
+
+			<label id="espacador" asp-for="Input.ConfirmPassword"></label>
+			<input asp-for="Input.ConfirmPassword" />
+			<span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+		</div>
+
+		<h6 id="divisor">Dados de acesso: </h6>
+		<div id="espacador">
+			<label>Vincule o usuário a Empresa</label>
+
+			<select asp-for="Input.CodigoEmpresa" asp-items="ViewBag.EmpresaId">
+				<option></option>
+			</select>
+			<span asp-validation-for="Input.CodigoEmpresa" class="text-danger"></span>
+
+			<label id="espacador">Selecione o Perfil do usuário</label>
+
+			<select asp-for="Input.Name" asp-items='new SelectList(roles,"Id","Name")'>
+				<option></option>
+			</select>
+			<span asp-validation-for="Input.Name" class="text-danger"></span>
+		</div>
+	</form>
+</div>
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+	}

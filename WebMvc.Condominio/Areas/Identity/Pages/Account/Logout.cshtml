@@ -1,0 +1,32 @@
+﻿@page
+@model LogoutModel
+@{
+	ViewData["Title"] = "Sair";
+}
+
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="goBack()">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			<h4 class="modal-title">@ViewData["Title"]</h4>
+		</div>
+		<div class="modal-body">
+
+			<p>
+				Clique no Sim para sair.
+			</p>
+
+			<div class="row">
+				<form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal" onclick="goBack()">Não</button>
+						<button type="submit" class="btn btn-danger pull-left">Sim</button>
+					</div>
+				</form>
+			</div>
+
+		</div>
+	</div>
+</div>

@@ -1,0 +1,117 @@
+﻿BEGIN TRANSACTION;
+GO
+
+CREATE TABLE [Cliente] (
+    [Id] int NOT NULL IDENTITY,
+    [Nome] varchar(50) NOT NULL,
+    [Cpf] varchar(11) NOT NULL,
+    [Celular] varchar(16) NOT NULL,
+    [Telefone] varchar(16) NULL,
+    [Email] varchar(50) NOT NULL,
+    [Cep] varchar(12) NULL,
+    [Uf] varchar(30) NULL,
+    [Cidade] varchar(50) NULL,
+    [Endereco] varchar(50) NULL,
+    [Complemento] varchar(50) NULL,
+    CONSTRAINT [PK_Cliente] PRIMARY KEY ([Id])
+);
+GO
+
+CREATE TABLE [Fornecedor] (
+    [Id] int NOT NULL IDENTITY,
+    [Nome] varchar(50) NOT NULL,
+    [Cnpj] varchar(14) NOT NULL,
+    [Celular] varchar(16) NOT NULL,
+    [Telefone] varchar(16) NULL,
+    [Email] varchar(50) NOT NULL,
+    [Cep] varchar(12) NULL,
+    [Uf] varchar(30) NULL,
+    [Cidade] varchar(50) NULL,
+    [Endereco] varchar(50) NULL,
+    [Complemento] varchar(50) NULL,
+    CONSTRAINT [PK_Fornecedor] PRIMARY KEY ([Id])
+);
+GO
+
+CREATE TABLE [Rca] (
+    [Id] int NOT NULL IDENTITY,
+    [Nome] varchar(50) NOT NULL,
+    [Cpf] varchar(11) NOT NULL,
+    [Celular] varchar(16) NOT NULL,
+    [Telefone] varchar(16) NULL,
+    [Email] varchar(50) NOT NULL,
+    [Cep] varchar(12) NULL,
+    [Uf] varchar(30) NULL,
+    [Cidade] varchar(50) NULL,
+    [Endereco] varchar(50) NULL,
+    [Complemento] varchar(50) NULL,
+    CONSTRAINT [PK_Rca] PRIMARY KEY ([Id])
+);
+GO
+
+CREATE TABLE [Status] (
+    [Id] int NOT NULL IDENTITY,
+    [NomeStatus] varchar(15) NOT NULL,
+    CONSTRAINT [PK_Status] PRIMARY KEY ([Id])
+);
+GO
+
+CREATE TABLE [Produto] (
+    [Id] int NOT NULL IDENTITY,
+    [Nome] varchar(50) NOT NULL,
+    [Preco] decimal(18,2) NOT NULL,
+    [FornecedorId] int NOT NULL,
+    CONSTRAINT [PK_Produto] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_Produto_Fornecedor_FornecedorId] FOREIGN KEY ([FornecedorId]) REFERENCES [Fornecedor] ([Id]) ON DELETE CASCADE
+);
+GO
+
+CREATE TABLE [Pedido] (
+    [Id] int NOT NULL IDENTITY,
+    [DataPedido] datetime2 NOT NULL,
+    [StatusId] int NOT NULL,
+    [ClienteId] int NOT NULL,
+    [RcaId] int NOT NULL,
+    [TotalPedido] decimal(18,2) NOT NULL,
+    [Cont] int NOT NULL,
+    CONSTRAINT [PK_Pedido] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_Pedido_Cliente_ClienteId] FOREIGN KEY ([ClienteId]) REFERENCES [Cliente] ([Id]) ON DELETE CASCADE,
+    CONSTRAINT [FK_Pedido_Rca_RcaId] FOREIGN KEY ([RcaId]) REFERENCES [Rca] ([Id]) ON DELETE CASCADE,
+    CONSTRAINT [FK_Pedido_Status_StatusId] FOREIGN KEY ([StatusId]) REFERENCES [Status] ([Id]) ON DELETE CASCADE
+);
+GO
+
+CREATE TABLE [Item] (
+    [Id] int NOT NULL IDENTITY,
+    [Sequencia] int NOT NULL,
+    [PedidoId] int NOT NULL,
+    [ProdutoId] int NOT NULL,
+    [QuantidadeItem] int NOT NULL,
+    [PrecoItem] decimal(18,2) NOT NULL,
+    [TotalItem] decimal(18,2) NOT NULL,
+    CONSTRAINT [PK_Item] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_Item_Pedido_PedidoId] FOREIGN KEY ([PedidoId]) REFERENCES [Pedido] ([Id]) ON DELETE CASCADE,
+    CONSTRAINT [FK_Item_Produto_ProdutoId] FOREIGN KEY ([ProdutoId]) REFERENCES [Produto] ([Id]) ON DELETE CASCADE
+);
+GO
+
+CREATE INDEX [IX_Item_PedidoId] ON [Item] ([PedidoId]);
+GO
+
+CREATE INDEX [IX_Item_ProdutoId] ON [Item] ([ProdutoId]);
+GO
+
+CREATE INDEX [IX_Pedido_ClienteId] ON [Pedido] ([ClienteId]);
+GO
+
+CREATE INDEX [IX_Pedido_RcaId] ON [Pedido] ([RcaId]);
+GO
+
+CREATE INDEX [IX_Pedido_StatusId] ON [Pedido] ([StatusId]);
+GO
+
+CREATE INDEX [IX_Produto_FornecedorId] ON [Produto] ([FornecedorId]);
+GO
+
+COMMIT;
+GO

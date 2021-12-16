@@ -1,0 +1,110 @@
+﻿@model WebMvc.Vendas.Models.PedidoViewModel
+@{
+	ViewData["Title"] = "Novo Pedido";
+}
+
+<h6 id="titulo">@ViewData["Title"] Código @Html.DisplayFor(model => model.Pedido.Id)</h6>
+<div id="espacador">
+	<dl class="row">
+		<dt id="espacador">Data emissão </dt>
+		<dd id="espacador">
+			@Html.DisplayFor(model => model.Pedido.DataPedido)
+		</dd>
+		<dt id="espacador">Status </dt>
+		<dd id="espacador">
+			@Html.DisplayFor(model => model.StatusList.NomeStatus)
+		</dd>
+		<dt id="espacador">RCA </dt>
+		<dd id="espacador">
+			@Html.DisplayFor(model => model.RcaList.Nome)
+		</dd>
+		<dt id="espacador">Cliente </dt>
+		<dd id="espacador">
+			@Html.DisplayFor(model => model.ClienteList.Nome)
+		</dd>
+	</dl>
+	<h6 id="divisor">Adicionar Item para o cliente</h6>
+	<form asp-action="IncluirCreate" autocomplete="off" >
+		<input type="hidden" asp-for="Pedido.Id" />
+		<input type="hidden" asp-for="Pedido.DataPedido" />
+		<input type="hidden" asp-for="Pedido.ClienteId" />
+		<input type="hidden" asp-for="Pedido.StatusId" />
+		<input type="hidden" asp-for="Pedido.RcaId" />
+		<input type="hidden" asp-for="Pedido.TotalPedido" />
+		<input type="hidden" asp-for="Pedido.Cont" />
+		<input type="hidden" asp-for="ClienteList.Id" />
+		<input type="hidden" asp-for="RcaList.Id" />
+		<input type="hidden" asp-for="StatusList.Id" />
+		<div class="form-group">
+			<label id="espacador">
+				Produto
+				<select asp-for="Item.ProdutoId" asp-items="@(new SelectList(Model.Produtoes,"Id", "Nome"))" style="width:200px;">
+					<option></option>
+				</select>
+			</label>
+			<label id="espacador">Quantidade <input asp-for="Item.QuantidadeItem" style="width:70px;" /></label>
+			<button type="submit" name="responda" value="Adicionar" class="btn btn-success">Incluir Produto</button>
+		</div>
+	</form>
+</div>
+<h6 id="divisor">Itens vendidos ao cliente</h6>
+<table class="table table-hover">
+	<thead>
+		<tr class="table-success">
+			<th>Código</th>
+			<th>Sequencia</th>
+			<th>Cd.Pedido</th>
+			<th>Produto</th>
+			<th>Qtde.Produto</th>
+			<th>Valor produto</th>
+			<th>Valor total</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var obj in Model.Itemes)
+		{
+			<tr class="table-active">
+				<td>
+					@Html.DisplayFor(modelItem => obj.Id)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => obj.Sequencia)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => obj.PedidoId)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => obj.Produto.Nome)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => obj.QuantidadeItem)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => obj.PrecoItem)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => obj.TotalItem)
+				</td>
+				<td>
+					<a asp-action="DeleteItemCreate" class="badge badge-danger" asp-route-id="@obj.Id">Excluir</a>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
+<hr />
+<div>
+	<h3>Total Pedido @Html.DisplayFor(model => model.Pedido.TotalPedido)</h3>
+</div>
+<hr />
+<div class="form-group">
+	<a asp-action="Index" class="btn btn-warning">Cancelar</a>
+	<a asp-action="Index" class="btn btn-danger">Fechar</a>
+</div>
+
+@section Scripts {
+    @{
+	await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+}

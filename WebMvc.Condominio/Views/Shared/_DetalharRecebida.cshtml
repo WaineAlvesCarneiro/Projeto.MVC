@@ -1,0 +1,43 @@
+﻿@model WebMvc.Condominio.Models.ImovelViewModel
+
+<h6 id="divisor">Dados da encomenda recebida </h6>
+
+<div id="espacador">
+	<dl class="row">
+		<dt id="espacador">Código rastreio </dt>
+		<dd id="espacador">
+			@Html.DisplayFor(model => model.EncRecebida.CodigoRastreio)
+		</dd>
+		<dt id="espacador">Tipo encomenda </dt>
+		<dd id="espacador">
+			@Html.DisplayFor(model => model.EncRecebida.TipoEncomenda)
+		</dd>
+		<dt id="espacador">Data recebimento </dt>
+		<dd id="espacador">
+			@Html.DisplayFor(model => model.EncRecebida.DataRecebimento)
+		</dd>
+		<dt id="espacador">Entregue </dt>
+		<dd id="espacador">
+			@Html.DisplayFor(model => model.EncRecebida.Entregue_Sim_Nao)
+		</dd>
+	</dl>
+</div>
+
+<h6 id="divisor">Dados do morador na encomenda </h6>
+
+<div id="espacador">
+	<dl class="row">
+		<dt id="espacador">Morador encomenda </dt>
+		<dd id="espacador">
+			@Html.DisplayFor(model => model.Morador.Nome)
+		</dd>
+		<dt id="espacador">Tipo encomenda </dt>
+		<dd id="espacador">
+			@Html.DisplayFor(model => model.EncRecebida.TipoEncomenda)
+		</dd>
+		<dt id="espacador">Morador e-mail </dt>
+		<dd id="espacador">
+			@Html.DisplayFor(model => model.Morador.Email)
+		</dd>
+	</dl>
+</div>

@@ -1,0 +1,41 @@
+﻿@model WebMvc.Vendas.Models.Rca
+
+@{
+	ViewData["Title"] = "Novo RCA";
+}
+
+<h6 id="titulo">@ViewData["Title"]</h6>
+
+<div>
+	<form asp-action="Create" autocomplete="off" >
+		<h6 id="divisor">Dados do RCA</h6>
+		<div class="form-group">
+			<label id="espacador">Nome <input autofocus asp-for="Nome" style="width:350px;" /></label>
+			<label id="espacador">CPF <input asp-for="Cpf" /></label>
+		</div>
+		<h6 id="divisor">Dados de contato</h6>
+		<div class="form-group">
+			<label id="espacador">Celular <input asp-for="Celular" /></label>
+			<label id="espacador">Telefone <input asp-for="Telefone" /></label>
+			<label id="espacador">E-mail <input asp-for="Email" style="width:350px;" /></label>
+		</div>
+		<h6 id="divisor">Dados de endereço</h6>
+		<div class="form-group">
+			<label id="espacador">CEP <input asp-for="Cep" /></label>
+			<label id="espacador">UF <input asp-for="Uf" /></label>
+			<label id="espacador">Cidade <input asp-for="Cidade" style="width:250px;" /></label>
+			<label id="espacador">Endereço <input asp-for="Endereco" style="width:300px;" /></label>
+			<label id="espacador">Complemento <input asp-for="Complemento" style="width:200px;" /></label>
+		</div>
+		<div class="form-group">
+			<input type="submit" value="Salvar" class="btn btn-success" />
+			<a asp-action="Index" class="btn btn-warning">Cancelar</a>
+		</div>
+	</form>
+</div>
+
+@section Scripts {
+    @{
+	await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+}

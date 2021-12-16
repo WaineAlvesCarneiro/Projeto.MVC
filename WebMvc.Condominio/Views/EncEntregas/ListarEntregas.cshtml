@@ -1,0 +1,60 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using WebMvc.Condominio.Data
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@model IEnumerable<WebMvc.Condominio.Models.EncEntrega>
+
+@{
+	ViewData["Title"] = "Lista entregas";
+}
+
+<div>
+	<form role="search" autocomplete="off">
+		<label>Com data de Saída do imóvel?</label>
+		<label for="saida">
+			@Html.CheckBox("saida", ViewData["comDataSaida"])
+		</label>
+		<label id="espacador"></label>
+		<button type="submit" class="btn btn-primary">Pesquisar</button>
+	</form>
+</div>
+<br />
+
+<table class="table table-hover">
+	<thead>
+		<tr class="table-success">
+			<th>
+				@Html.DisplayNameFor(model => model.Imovel.BlocoQuadra)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Imovel.AptoLote)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.DataEntrega)
+			</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr class="table-active">
+				<td>
+					@Html.DisplayFor(modelItem => item.Imovel.BlocoQuadra)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Imovel.AptoLote)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.DataEntrega)
+				</td>
+				<td class="text-center">
+					<a asp-action="DetalharEntrega" title="Detalhar Entrega" class="btn btn-primary" asp-route-id="@item.Id">
+						<spam class="fa fa-search"></spam>
+					</a>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>

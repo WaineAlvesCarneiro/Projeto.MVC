@@ -1,0 +1,67 @@
+﻿@model WebMvc.Vendas.Models.Rca
+@{
+	ViewData["Title"] = "Detelhes do RCA";
+}
+
+<h6 id="titulo">@ViewData["Title"] código @Html.DisplayFor(model => model.Id)</h6>
+
+<h6 id="divisor">Dados do RCA</h6>
+<div id="espacador">
+	<dl class="row">
+		<dt id="espacador">Nome </dt>
+		<dd id="espacador">
+			@Html.DisplayFor(model => model.Nome)
+		</dd>
+		<dt id="espacador">CPF
+		<dd id="espacador">
+				@Html.DisplayFor(model => model.Cpf)
+		</dd>
+	</dl>
+</div>
+<h6 id="divisor">Dados de contato</h6>
+<div id="espacador">
+	<dl class="row">
+		<dt id="espacador">Celular </dt>
+		<dd id="espacador">
+			@Html.DisplayFor(model => model.Celular)
+		</dd>
+		<dt id="espacador">Telefone </dt>
+		<dd id="espacador">
+			@Html.DisplayFor(model => model.Telefone)
+		</dd>
+		<dt id="espacador">E-mail </dt>
+		<dd id="espacador">
+			@Html.DisplayFor(model => model.Email)
+		</dd>
+	</dl>
+</div>
+<h6 id="divisor">Dados de endereço</h6>
+<div id="espacador">
+	<dl class="row">
+		<dt id="espacador">CEP </dt>
+		<dd id="espacador">
+			@Html.DisplayFor(model => model.Cep)
+		</dd>
+		<dt id="espacador">UF </dt>
+		<dd id="espacador">
+			@Html.DisplayFor(model => model.Uf)
+		</dd>
+		<dt id="espacador">Cidade </dt>
+		<dd id="espacador">
+			@Html.DisplayFor(model => model.Cidade)
+		</dd>
+		<dt id="espacador">Endereço </dt>
+		<dd id="espacador">
+			@Html.DisplayFor(model => model.Endereco)
+		</dd>
+		<dt id="espacador">Complemento </dt>
+		<dd id="espacador">
+			@Html.DisplayFor(model => model.Complemento)
+		</dd>
+	</dl>
+</div>
+
+<div>
+	<a asp-action="Edit" class="btn btn-info" asp-route-id="@Model.Id">Editar</a>
+	<a asp-action="Index" class="btn btn-warning">Fechar</a>
+</div>

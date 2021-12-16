@@ -1,0 +1,38 @@
+﻿@model WebMvc.Vendas.Models.PedidoViewModel
+@{
+    ViewData["Title"] = "Novo Pedido";
+}
+<h6 id="titulo">@ViewData["Title"]</h6>
+
+<div>
+    <form asp-action="Create" autocomplete="off" >
+        <div class="form-group">
+            <label id="espacador">Data emissão <input autofocus asp-for="Pedido.DataPedido" /></label>
+            <label id="espacador">
+                Status
+                <select asp-for="Pedido.StatusId" asp-items="@(new SelectList(Model.Statuses,"Id", "NomeStatus"))" style="width: 250px;">
+                </select>
+            </label>
+            <label id="espacador">
+                RCA
+                <select asp-for="Pedido.RcaId" asp-items="@(new SelectList(Model.Rcaes,"Id", "Nome"))" style="width: 250px;">
+                    <option></option>
+                </select>
+            </label>
+            <label id="espacador">
+                Cliente
+                <select asp-for="Pedido.ClienteId" asp-items="@(new SelectList(Model.Clientees,"Id", "Nome"))" style="width: 250px;">
+                    <option></option>
+                </select>
+            </label>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Salvar" class="btn btn-success" />
+            <a asp-action="Index" class="btn btn-warning">Cancelar</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

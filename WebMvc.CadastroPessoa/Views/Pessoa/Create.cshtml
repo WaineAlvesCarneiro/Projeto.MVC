@@ -1,0 +1,63 @@
+﻿@using WebMvc.CadastroPessoa.Extensions
+@model WebMvc.CadastroPessoa.Models.Pessoa
+
+@{
+	ViewData["Title"] = "Nova pessoa";
+}
+
+<h6 id="titulo">@ViewData["Title"]</h6>
+
+<div>
+	<form asp-action="Create" autocomplete="off">
+		<h6 id="divisor">Dados da pessoa</h6>
+		<div class="form-group">
+			<label id="espacador">Nome <input autofocus asp-for="Nome" style="width:350px;" /></label>
+			<label id="espacador">Data aniversário <input asp-for="DtAniversario" style="width:150px;" /></label>
+			<label id="espacador">
+				Pessoa:
+				<input type="radio" value="1" asp-for="TipoPessoa" checked /> Física
+				<input type="radio" value="2" asp-for="TipoPessoa" /> Jurídica
+			</label>
+			<label id="espacador">
+				CPF/CNPJ <input asp-for="CpfCnpj" type="text" onfocus="javascript: retirarFormatacao(this);"
+							onblur="javascript: formatarCampo(this);" maxlength="18" />
+			</label>
+			<label id="espacador"></label>
+			<label id="espacador" class="form-check-label">
+				<input class="form-check-input" asp-for="Ativo" /> @Html.DisplayNameFor(model => model.Ativo)
+			</label>
+		</div>
+
+		<h6 id="divisor">Dados de contato</h6>
+		<div class="form-group">
+			<label id="espacador">Celular <input asp-for="Celular" onkeypress="$(this).mask('(00) 00000-0000')" /></label>
+			<label id="espacador">Telefone <input asp-for="Telefone" onkeypress="$(this).mask('(00) 0000-0000')" /></label>
+			<label id="espacador">E-mail <input asp-for="Email" style="width:350px;" /></label>
+		</div>
+
+		<h6 id="divisor">Dados de endereço</h6>
+		<div class="form-group">
+			<label id="espacador">CEP <input asp-for="Endereco.Cep" onkeypress="$(this).mask('00.000-000')" /></label>
+			<label id="espacador">Número <input asp-for="Endereco.Numero" style="width:100px;" /></label>
+			<label id="espacador">Complemento <input asp-for="Endereco.Complemento" style="width:350px;" /></label>
+			<label id="espacador">Logradouro <input asp-for="Endereco.Logradouro" style="width:300px;" /></label>
+			<label id="espacador">Bairro <input asp-for="Endereco.Bairro" style="width:300px;" /></label>
+			<label id="espacador">Cidade <input asp-for="Endereco.Cidade" style="width:300px;" /></label>
+			<label id="espacador">UF <input asp-for="Endereco.Estado" style="width:100px;" /></label>
+		</div>
+
+		<div class="form-group">
+			<input type="submit" value="Salvar" class="btn btn-success" />
+			<a asp-action="Index" class="btn btn-warning">Cancelar</a>
+		</div>
+	</form>
+</div>
+
+@section Scripts {
+    @{
+	await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+<script>
+	BuscaCep();
+</script>
+}

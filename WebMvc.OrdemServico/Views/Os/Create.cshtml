@@ -1,0 +1,27 @@
+﻿@model WebMvc.OrdemServico.Models.OsPrestadoViewModel
+@{
+    ViewData["Title"] = "Nova O.S.";
+}
+<h6 id="titulo">@ViewData["Title"]</h6>
+
+<div>
+    <form asp-action="Create" autocomplete="off" >
+        <div class="form-group">
+            <label id="espacador">Data Abertura <input autofocus asp-for="Os.DtAbertura" /></label>
+            <label id="espacador">
+                Cliente
+                <select asp-for="Os.ClienteId" asp-items="@(new SelectList(Model.Clientees,"Id", "Nome"))" style="width: 250px;">
+                    <option></option>
+                </select>
+            </label>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Salvar" class="btn btn-success" />
+            <a asp-action="Index" class="btn btn-warning">Cancelar</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

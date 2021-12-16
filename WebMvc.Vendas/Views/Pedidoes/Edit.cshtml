@@ -1,0 +1,117 @@
+﻿@model WebMvc.Vendas.Models.PedidoViewModel
+@{
+    ViewData["Title"] = "Editar pedido";
+}
+
+<h6 id="titulo">@ViewData["Title"] código @Html.DisplayFor(model => model.Pedido.Id)</h6>
+
+<div id="espacador">
+    <form asp-action="Edit" autocomplete="off" >
+        <input type="hidden" asp-for="Pedido.Id" />
+        <div class="form-group">
+            <label id="espacador">Data emissão <input asp-for="Pedido.DataPedido" /></label>
+            <label id="espacador">
+                Status
+                <select asp-for="Pedido.StatusId" asp-items="@(new SelectList(Model.Statuses,"Id", "NomeStatus"))" style="width: 250px;">
+                </select>
+            </label>
+            <label id="espacador">
+                RCA
+                <select asp-for="Pedido.RcaId" asp-items="@(new SelectList(Model.Rcaes,"Id", "Nome"))" style="width: 250px;">
+                    <option></option>
+                </select>
+            </label>
+            <label id="espacador">
+                Cliente
+                <select asp-for="Pedido.ClienteId" asp-items="@(new SelectList(Model.Clientees,"Id", "Nome"))" style="width: 250px;">
+                    <option></option>
+                </select>
+            </label>
+            <input type="submit" value="Salvar" class="btn btn-success" />
+        </div>
+    </form>
+</div>
+<h6 id="divisor">Adicionar Item para o cliente</h6>
+<div id="espacador">
+    <form asp-action="IncluirEdit">
+        <input type="hidden" asp-for="Pedido.Id" />
+        <input type="hidden" asp-for="Pedido.DataPedido" />
+        <input type="hidden" asp-for="Pedido.ClienteId" />
+        <input type="hidden" asp-for="Pedido.StatusId" />
+        <input type="hidden" asp-for="Pedido.RcaId" />
+        <input type="hidden" asp-for="Pedido.TotalPedido" />
+        <input type="hidden" asp-for="Pedido.Cont" />
+        <input type="hidden" asp-for="ClienteList.Id" />
+        <input type="hidden" asp-for="RcaList.Id" />
+        <input type="hidden" asp-for="StatusList.Id" />
+        <div class="form-group">
+            <label id="espacador">
+                Produto
+                <select asp-for="Item.ProdutoId" asp-items="@(new SelectList(Model.Produtoes,"Id", "Nome"))" style="width:200px;">
+                    <option></option>
+                </select>
+            </label>
+            <label id="espacador">Quantidade <input asp-for="Item.QuantidadeItem" style="width:70px;" /></label>
+            <button type="submit" name="responda" value="Adicionar" class="btn btn-success">Incluir Produto</button>
+        </div>
+    </form>
+</div>
+<h6 id="divisor">Lista de itens do cliente</h6>
+<table class="table table-hover">
+    <thead>
+        <tr class="table-success">
+            <th>Código</th>
+            <th>Sequencia</th>
+            <th>Cd.Pedido</th>
+            <th>Produto</th>
+            <th>Qtde.Produto</th>
+            <th>Valor produto</th>
+            <th>Valor total</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var obj in Model.Itemes)
+        {
+            <tr class="table-active">
+                <td>
+                    @Html.DisplayFor(modelItem => obj.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => obj.Sequencia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => obj.PedidoId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => obj.Produto.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => obj.QuantidadeItem)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => obj.PrecoItem)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => obj.TotalItem)
+                </td>
+                <td>
+                    <a asp-action="DeleteItemEdit" class="badge badge-danger" asp-route-id="@obj.Id">Excluir</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<hr />
+<div>
+    <h3>Total Pedido @Html.DisplayFor(model => model.Pedido.TotalPedido)</h3>
+</div>
+<hr />
+<div class="form-group">
+    <a asp-action="Index" class="btn btn-warning">Cancelar</a>
+    <a asp-action="Index" class="btn btn-danger">Fechar</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

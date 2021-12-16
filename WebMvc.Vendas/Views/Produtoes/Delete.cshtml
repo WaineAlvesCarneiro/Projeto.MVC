@@ -1,0 +1,31 @@
+﻿@model WebMvc.Vendas.Models.Produto
+
+@{
+    ViewData["Title"] = "Excluir o produto";
+}
+
+<h6 id="titulo">Tem certeza que deseja @ViewData["Title"]: @Html.DisplayFor(model => model.Nome)</h6>
+
+<div id="espacador">
+    <h6 id="divisor">Dados do produto</h6>
+    <dl class="row">
+        <dt id="espacador">Nome </dt>
+        <dd id="espacador">
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+        <dt id="espacador">Preço </dt>
+        <dd id="espacador">
+            @Html.DisplayFor(model => model.Preco)
+        </dd>
+        <dt id="espacador">Fornecedor </dt>
+        <dd id="espacador">
+            @Html.DisplayFor(model => model.Fornecedores.Nome)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Excluir" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-warning">Cancelar</a>
+    </form>
+</div>

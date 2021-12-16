@@ -1,0 +1,69 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using WebMvc.Condominio.Data
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@model WebMvc.Condominio.Models.ImovelViewModel
+
+@{
+	ViewData["Title"] = "Cadastro de moradores";
+}
+
+<h6 id="titulo">@ViewData["Title"]</h6>
+
+<div id="espacador">
+	<form asp-action="CadastrarMoradores" enctype="multipart/form-data" autocomplete="off">
+		<input type="hidden" asp-for="Imovel.Id" />
+		<input type="hidden" asp-for="Imovel.Box" />
+		<input type="hidden" asp-for="Imovel.AptoLote" />
+		<input type="hidden" asp-for="Imovel.BlocoQuadra" />
+		<input type="hidden" asp-for="Imovel.EmpresaId" />
+
+		<div class="row">
+			<button type="submit" name="responda" value="Adicionar" class="btn btn-light">
+				<i class="fa fa-save"></i> Gravar
+			</button>
+			<dl id="espacador"></dl>
+			<a asp-controller="Imovels" asp-action="DetalharImovel" asp-route-id="@Model.Imovel.Id" class="btn btn-light">
+				<i class="fa fa-close"></i> Sair
+			</a>
+		</div>
+		<h6 id="divisor"></h6>
+
+		<partial name="_ImovelBlocoApto" />
+
+		<h6 id="divisor">Dados gerais: </h6>
+		<div id="espacador">
+			<label asp-for="Morador.Nome" class="control-label"></label>
+			<input autofocus asp-for="Morador.Nome" style="width:350px;" />
+			<span asp-validation-for="Morador.Nome" class="text-danger"></span>
+
+			<label id="espacador" asp-for="Morador.Celular" class="control-label"></label>
+			<input asp-for="Morador.Celular" />
+			<span asp-validation-for="Morador.Celular" class="text-danger"></span>
+			<br />
+
+			<label asp-for="Morador.Email" class="control-label"></label>
+			<input asp-for="Morador.Email" style="width:350px;" />
+			<span asp-validation-for="Morador.Email" class="text-danger"></span>
+
+			<label id="espacador" asp-for="Morador.Telefone" class="control-label"></label>
+			<input asp-for="Morador.Telefone" />
+			<span asp-validation-for="Morador.Telefone" class="text-danger"></span>
+
+			<h6 id="divisor"></h6>
+			<label asp-for="Morador.FotoFile" class="control-label"></label>
+			<input asp-for="Morador.FotoFile" accept="image/*" />
+			<span asp-validation-for="Morador.FotoFile" class="text-danger"></span>
+		</div>
+	</form>
+
+	<h6 id="divisor"></h6>
+	<partial name="_ListaMoradoresManutecao" />
+</div>
+
+@section Scripts {
+    @{
+	await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+}

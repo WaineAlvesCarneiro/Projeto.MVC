@@ -1,0 +1,90 @@
+﻿@using WebMvc.CadastroPessoa.Extensions
+@model WebMvc.CadastroPessoa.Models.Pessoa
+
+@{
+    ViewData["Title"] = "Excluir a pessoa";
+}
+
+<h6 id="titulo">Tem certeza que deseja @ViewData["Title"] código @Html.DisplayFor(model => model.Id)</h6>
+
+<h6 id="divisor">Dados da pessoa</h6>
+<div id="espacador">
+	<dl class="row">
+		<dt id="espacador">Nome </dt>
+		<dd id="espacador">
+			@Html.DisplayFor(model => model.Nome)
+		</dd>
+		<dt id="espacador">Data aniversário </dt>
+		<dd id="espacador">
+			@Html.DisplayFor(model => model.DtAniversario)
+		</dd>
+		<dt id="espacador">Pessoa: </dt>
+		<dd id="espacador">
+			@this.FormataTipoPessoa(Model.TipoPessoa, Model.CpfCnpj)
+		</dd>
+		<dt id="espacador">CPF/CNPJ
+		<dd id="espacador">
+			@Html.DisplayFor(model => model.CpfCnpj)
+		</dd>
+		<dt id="espacador">Ativo </dt>
+		<dd id="espacador">
+			@Html.DisplayFor(model => model.Ativo)
+		</dd>
+	</dl>
+</div>
+<h6 id="divisor">Dados de contato</h6>
+<div id="espacador">
+	<dl class="row">
+		<dt id="espacador">Celular </dt>
+		<dd id="espacador">
+			@Html.DisplayFor(model => model.Celular)
+		</dd>
+		<dt id="espacador">Telefone </dt>
+		<dd id="espacador">
+			@Html.DisplayFor(model => model.Telefone)
+		</dd>
+		<dt id="espacador">E-mail </dt>
+		<dd id="espacador">
+			@Html.DisplayFor(model => model.Email)
+		</dd>
+	</dl>
+</div>
+<h6 id="divisor">Dados de endereço</h6>
+<div id="espacador">
+	<dl class="row">
+		<dt id="espacador">CEP </dt>
+		<dd id="espacador">
+			@Html.DisplayFor(model => model.Endereco.Cep)
+		</dd>
+		<dt id="espacador">Número </dt>
+		<dd id="espacador">
+			@Html.DisplayFor(model => model.Endereco.Numero)
+		</dd>
+		<dt id="espacador">Complemento </dt>
+		<dd id="espacador">
+			@Html.DisplayFor(model => model.Endereco.Complemento)
+		</dd>
+		<dt id="espacador">Logradouro </dt>
+		<dd id="espacador">
+			@Html.DisplayFor(model => model.Endereco.Logradouro)
+		</dd>
+		<dt id="espacador">Bairro </dt>
+		<dd id="espacador">
+			@Html.DisplayFor(model => model.Endereco.Bairro)
+		</dd>
+		<dt id="espacador">Cidade </dt>
+		<dd id="espacador">
+			@Html.DisplayFor(model => model.Endereco.Cidade)
+		</dd>
+		<dt id="espacador">UF </dt>
+		<dd id="espacador">
+			@Html.DisplayFor(model => model.Endereco.Estado)
+		</dd>
+	</dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Excluir" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-warning">Cancelar</a>
+    </form>
+</div>

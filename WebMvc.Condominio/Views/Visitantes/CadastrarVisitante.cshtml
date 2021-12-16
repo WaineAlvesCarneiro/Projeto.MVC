@@ -1,0 +1,57 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using WebMvc.Condominio.Data
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@model WebMvc.Condominio.Models.ImovelViewModel
+
+@{
+	ViewData["Title"] = "Novo vistante";
+}
+
+<h6 id="titulo">@ViewData["Title"]</h6>
+
+<div id="espacador">
+	<form asp-controller="Visitantes" asp-action="CadastrarVisitante" enctype="multipart/form-data" autocomplete="off">
+		<input type="hidden" asp-for="Imovel.Id" />
+		<input type="hidden" asp-for="Imovel.Box" />
+		<input type="hidden" asp-for="Imovel.AptoLote" />
+		<input type="hidden" asp-for="Imovel.BlocoQuadra" />
+		<input type="hidden" asp-for="Imovel.EmpresaId" />
+
+		<div class="row">
+			<button type="submit" class="btn btn-light">
+				<i class="fa fa-save"></i> Gravar
+			</button>
+			<dl id="espacador"></dl>
+			<a asp-controller="Imovels" asp-action="DetalharImovel" asp-route-id="@Model.Imovel.Id" class="btn btn-light">
+				<i class="fa fa-close"></i> Sair
+			</a>
+		</div>
+		<h6 id="divisor"></h6>
+
+		<partial name="_ImovelBlocoApto" />
+
+		<h6 id="divisor">Dados gerais: </h6>
+		<div id="espacador">
+			<label asp-for="Visitante.Nome" class="control-label"></label>
+			<input autofocus asp-for="Visitante.Nome" style="width:350px;" />
+			<span asp-validation-for="Visitante.Nome" class="text-danger"></span>
+
+			<label id="espacador" asp-for="Visitante.Documento" class="control-label"></label>
+			<input asp-for="Visitante.Documento" />
+			<span asp-validation-for="Visitante.Documento" class="text-danger"></span>
+
+			<h6 id="divisor"></h6>
+			<label asp-for="Visitante.FotoFile" class="control-label"></label>
+			<input asp-for="Visitante.FotoFile" accept="image/*" />
+			<span asp-validation-for="Visitante.FotoFile" class="text-danger"></span>
+		</div>
+	</form>
+</div>
+
+@section Scripts {
+    @{
+	await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+}

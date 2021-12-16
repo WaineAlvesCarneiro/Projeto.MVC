@@ -1,0 +1,95 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using WebMvc.Condominio.Data
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@model IEnumerable<WebMvc.Condominio.Models.Visitante>
+
+@{
+	ViewData["Title"] = "Lista visitantes";
+}
+
+<div>
+	<form role="search" autocomplete="off">
+		<label>Com data de Saída do imóvel?</label>
+		<label for="saida">
+			@Html.CheckBox("saida", ViewData["comDataSaida"])
+		</label>
+		<label id="espacador"></label>
+		<button type="submit" class="btn btn-primary">Pesquisar</button>
+	</form>
+</div>
+<br />
+
+<table class="table table-hover">
+	<thead>
+		<tr class="table-success">
+			<th></th>
+			<th>
+				@Html.DisplayNameFor(model => model.Imovel.BlocoQuadra)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Imovel.AptoLote)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Nome)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Documento)
+			</th>
+			<th></th>
+			<th>
+				@Html.DisplayNameFor(model => model.DataEntrada)
+			</th>
+			<th></th>
+			<th>
+				@Html.DisplayNameFor(model => model.DataSaida)
+			</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr class="table-active">
+				<td>
+					<img src="~/Imagens/@item.Foto" height="200" width="150" asp-append-version="true" />
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Imovel.BlocoQuadra)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Imovel.AptoLote)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Nome)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Documento)
+				</td>
+				<td>
+					<a asp-action="DataHoraEntrada" asp-route-id="@item.Id" title="Hora Entrada">
+						<spam class="fa fa-clock" style="font-size:25px;color:#2196F3"></spam>
+					</a>
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.DataEntrada)
+				</td>
+				<td>
+					<a asp-action="DataHoraSaida" asp-route-id="@item.Id" title="Hora Saída">
+						<spam class="fa fa-clock" style="font-size:25px;color:#2196F3"></spam>
+					</a>
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.DataSaida)
+				</td>
+				<td class="text-center">
+					<a asp-action="DetalharVisitante" title="Detalhar Visitante" class="btn btn-primary" asp-route-id="@item.Id">
+						<spam class="fa fa-search">
+					</a>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
+

@@ -1,0 +1,25 @@
+﻿@model WebMvc.OrdemServico.Models.Servico
+
+@{
+    ViewData["Title"] = "Novo serviço";
+}
+
+<h6 id="titulo">@ViewData["Title"]</h6>
+
+<div>
+    <form asp-action="Create" autocomplete="off" >
+        <h6 id="divisor">Dados do serviço</h6>
+        <div class="form-group">
+            <label id="espacador">Serviço <input autofocus asp-for="NomeServico" /></label>
+            <label id="espacador">Preço <input asp-for="Preco" data-val=false /></label>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Salvar" class="btn btn-success" />
+            <a asp-action="Index" class="btn btn-warning">Cancelar</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,38 @@
+﻿BEGIN TRANSACTION;
+GO
+
+CREATE TABLE [Endereco] (
+    [Id] int NOT NULL IDENTITY,
+    [Cep] varchar(8) NOT NULL,
+    [Logradouro] varchar(200) NOT NULL,
+    [Numero] varchar(50) NOT NULL,
+    [Bairro] varchar(100) NOT NULL,
+    [Cidade] varchar(100) NOT NULL,
+    [Estado] varchar(50) NOT NULL,
+    [Complemento] varchar(100) NULL,
+    CONSTRAINT [PK_Endereco] PRIMARY KEY ([Id])
+);
+GO
+
+CREATE TABLE [Pessoa] (
+    [Id] int NOT NULL IDENTITY,
+    [Nome] varchar(100) NOT NULL,
+    [CpfCnpj] varchar(14) NOT NULL,
+    [Celular] varchar(16) NOT NULL,
+    [Telefone] varchar(16) NOT NULL,
+    [Email] varchar(50) NOT NULL,
+    [DtAniversario] datetime2 NOT NULL,
+    [Ativo] bit NOT NULL,
+    [TipoPessoa] int NOT NULL,
+    [EnderecoId] int NOT NULL,
+    CONSTRAINT [PK_Pessoa] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_Pessoa_Imovel_EnderecoId] FOREIGN KEY ([EnderecoId]) REFERENCES [Endereco] ([Id]) ON DELETE CASCADE
+);
+GO
+
+CREATE INDEX [IX_Pessoa_EnderecoId] ON [Pessoa] ([EnderecoId]);
+GO
+
+COMMIT;
+GO
+

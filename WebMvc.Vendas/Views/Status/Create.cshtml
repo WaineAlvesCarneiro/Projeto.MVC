@@ -1,0 +1,24 @@
+﻿@model WebMvc.Vendas.Models.Status
+
+@{
+    ViewData["Title"] = "Novo status";
+}
+
+<h6 id="titulo">@ViewData["Title"]</h6>
+
+<div>
+    <form asp-action="Create" autocomplete="off" >
+        <h6 id="divisor">Dados do status</h6>
+        <div class="form-group">
+            <label id="espacador">Nome Status <input autofocus asp-for="NomeStatus" /></label>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Salvar" class="btn btn-success" />
+            <a asp-action="Index" class="btn btn-warning">Cancelar</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

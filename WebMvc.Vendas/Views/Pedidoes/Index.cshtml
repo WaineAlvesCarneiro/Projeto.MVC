@@ -1,0 +1,75 @@
+﻿@model IEnumerable<WebMvc.Vendas.Models.Pedido>
+
+@{
+	ViewData["Title"] = "Lista de pedidos";
+}
+
+<p><a asp-action="Create" class="btn btn-warning">Adicionar</a></p>
+
+<table class="table table-hover">
+	<thead>
+		<tr class="table-success">
+			<th>
+				@Html.DisplayNameFor(model => model.Id)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.DataPedido)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Status.NomeStatus)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Cliente.Nome)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Cliente.Cpf)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Rca.Nome)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.TotalPedido)
+			</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr class="table-active">
+				<td>
+					@Html.DisplayFor(modelItem => item.Id)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.DataPedido)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Status.NomeStatus)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Cliente.Nome)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Cliente.Cpf)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Rca.Nome)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.TotalPedido)
+				</td>
+				<td class="text-center">
+					<a asp-action="Details" title="Detalhar" class="btn btn-primary" asp-route-id="@item.Id">
+						<spam class="fa fa-search"></spam>
+					</a>
+					<a asp-action="Edit" title="Editar" class="btn btn-info" asp-route-id="@item.Id">
+						<spam class="fa fa-edit"></spam>
+					</a>
+					<a asp-action="Delete" title="Excluir" class="btn btn-danger" asp-route-id="@item.Id">
+						<spam class="fa fa-trash"></spam>
+					</a>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>

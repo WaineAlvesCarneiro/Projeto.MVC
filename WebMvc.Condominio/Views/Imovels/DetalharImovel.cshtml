@@ -1,0 +1,103 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using WebMvc.Condominio.Data
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@model WebMvc.Condominio.Models.ImovelViewModel
+
+@{
+	ViewData["Title"] = "Detalhes imóvel";
+}
+
+<h6 id="titulo">@ViewData["Title"]</h6>
+
+<div id="espacador">
+	<div class="row">
+		@if (Model.Imovel.DataSaida == null)
+		{
+			<a asp-controller="EncRecebidas" asp-action="CadastrarRecebida" asp-route-id="@Model.Imovel.Id" class="btn btn-light">
+				<i class="fa fa-shopping-basket"></i> Encomenda
+			</a>
+			<dl id="espacador"></dl>
+			<a asp-controller="Visitantes" asp-action="CadastrarVisitante" asp-route-id="@Model.Imovel.Id" class="btn btn-light">
+				<i class="fa fa-child"></i> Visitante
+			</a>
+			<dl id="espacador"></dl>
+			<a asp-controller="Prestadors" asp-action="CadastrarPrestador" asp-route-id="@Model.Imovel.Id" class="btn btn-light">
+				<i class="fa fa-wrench"></i> Prestador
+			</a>
+		}
+		<dl id="espacador"></dl>
+		@if (User.IsInRole("Suporte") || User.IsInRole("AdminCond"))
+		{
+			@if (Model.Imovel.DataSaida == null)
+			{
+				<a asp-controller="Moradors" asp-action="CadastrarMoradores" asp-route-id="@Model.Imovel.Id" class="btn btn-light">
+					<i class="fa fa-edit"></i> Morador
+				</a>
+			}
+			<dl id="espacador"></dl>
+			<a asp-action="EditarImovel" asp-route-id="@Model.Imovel.Id" class="btn btn-light">
+				<i class="fa fa-edit"></i> Imóvel
+			</a>
+			<dl id="espacador"></dl>
+			<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal-default">
+				<i class="fa fa-trash"></i> Excluir
+			</button>
+		}
+		<dl id="espacador"></dl>
+		<a class="btn btn-light" asp-area="" asp-controller="Home" asp-action="Index">
+			<i class="fa fa-close"></i> Sair
+		</a>
+	</div>
+
+	<dl id="espacador"></dl>
+
+	<partial name="_ImovelBlocoApto" />
+
+	<h6 id="divisor">Dados gerais: </h6>
+	<div id="espacador">
+		<dl class="row">
+			<dt id="espacador">Marca </dt>
+			<dd id="espacador">
+				@Html.DisplayFor(model => model.Imovel.Marca)
+			</dd>
+			<dt id="espacador">Modelo </dt>
+			<dd id="espacador">
+				@Html.DisplayFor(model => model.Imovel.Modelo)
+			</dd>
+			<dt id="espacador">Cor </dt>
+			<dd id="espacador">
+				@Html.DisplayFor(model => model.Imovel.Cor)
+			</dd>
+			<dt id="espacador">Placa </dt>
+			<dd id="espacador">
+				@Html.DisplayFor(model => model.Imovel.Placa)
+			</dd>
+		</dl>
+	</div>
+
+	<h6 id="divisor">Em caso de URGÊNCIA, avisar: </h6>
+	<div id="espacador">
+		<dl class="row">
+			<dt id="espacador">Nome parente </dt>
+			<dd id="espacador">
+				@Html.DisplayFor(model => model.Imovel.ParenteNome)
+			</dd>
+			<dt id="espacador">Celular parente </dt>
+			<dd id="espacador">
+				@Html.DisplayFor(model => model.Imovel.ParenteCelular)
+			</dd>
+						<dt id="espacador">Telefone parente </dt>
+			<dd id="espacador">
+				@Html.DisplayFor(model => model.Imovel.ParenteTelefone)
+			</dd>
+		</dl>
+	</div>
+
+	<partial name="_ListaMoradoresImovel" />
+
+	<div class="modal fade" id="modal-default">
+		<partial name="ExcluirImovel" />
+	</div>
+</div>

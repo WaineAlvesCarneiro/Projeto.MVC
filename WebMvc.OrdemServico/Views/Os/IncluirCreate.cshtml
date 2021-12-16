@@ -1,0 +1,90 @@
+﻿@model WebMvc.OrdemServico.Models.OsPrestadoViewModel
+@{
+    ViewData["Title"] = "Nova O.S.";
+}
+<h6 id="titulo">@ViewData["Title"] Código @Html.DisplayFor(model => model.Os.Id)</h6>
+<div id="espacador">
+    <dl class="row">
+        <dt id="espacador">Data Abertura </dt>
+        <dd id="espacador">
+            @Html.DisplayFor(model => model.Os.DtAbertura)
+        </dd>
+        <dt id="espacador">Cliente </dt>
+        <dd id="espacador">
+            @Html.DisplayFor(model => model.ClienteList.Nome)
+        </dd>
+    </dl>
+    <h6 id="divisor">Adicionar Serviços para o cliente</h6>
+    <form asp-action="IncluirCreate" autocomplete="off" >
+        <input type="hidden" asp-for="Os.Id" />
+        <input type="hidden" asp-for="Os.DtAbertura" />
+        <input type="hidden" asp-for="Os.ClienteId" />
+        <input type="hidden" asp-for="Os.TotalOs" />
+        <input type="hidden" asp-for="ClienteList.Id" />
+        <div class="form-group">
+            <label id="espacador">
+                Serviço
+                <select asp-for="Prestado.ServicoId" autofocus asp-items="@(new SelectList(Model.Servicoes,"Id", "NomeServico"))" style="width:200px;">
+                    <option></option>
+                </select>
+            </label>
+            <label id="espacador">Quantidade <input asp-for="Prestado.QtdeServico" style="width:70px;" /></label>
+            <button type="submit" name="responda" value="Adicionar" class="btn btn-success">Incluir Serviço</button>
+        </div>
+    </form>
+</div>
+<h6 id="divisor">Serviços prestados no cliente</h6>
+<table class="table table-hover">
+    <thead>
+        <tr class="table-success">
+            <th>Código</th>
+            <th>O.S.</th>
+            <th>Serviço</th>
+            <th>Qtde.Serviço</th>
+            <th>Valor serviço</th>
+            <th>Valor total</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Prestadoes)
+        {
+            <tr class="table-active">
+                <th>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </th>
+                <th>
+                    @Html.DisplayFor(modelItem => item.OsId)
+                </th>
+                <th>
+                    @Html.DisplayFor(modelItem => item.Servico.NomeServico)
+                </th>
+                <th>
+                    @Html.DisplayFor(modelItem => item.QtdeServico)
+                </th>
+                <th>
+                    @Html.DisplayFor(modelItem => item.ValorItem)
+                </th>
+                <th>
+                    @Html.DisplayFor(modelItem => item.TotalItem)
+                </th>
+                <td>
+                    <a asp-action="DeletePrestadoCreate" class="badge badge-danger" asp-route-id="@item.Id">Excluir</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<hr />
+<div>
+    <h3>Total O.S. @Html.DisplayFor(model => model.Os.TotalOs)</h3>
+</div>
+<hr />
+<div class="form-group">
+    <a asp-action="Index" class="btn btn-warning">Cancelar</a>
+    <a asp-action="Index" class="btn btn-danger">Fechar</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

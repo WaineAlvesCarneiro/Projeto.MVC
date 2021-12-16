@@ -1,0 +1,46 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using WebMvc.Condominio.Data
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@model WebMvc.Condominio.Models.ImovelViewModel
+
+@{
+	ViewData["Title"] = "Detalhes recebida";
+}
+
+<h6 id="titulo">@ViewData["Title"]</h6>
+
+<div id="espacador">
+	<div class="row">
+		@if (Model.EncRecebida.Entregue_Sim_Nao != "Sim")
+		{
+			<a asp-controller="EncEntregas" asp-action="CadastrarEntrega" asp-route-id="@Model.EncRecebida.Id" class="btn btn-light">
+				<i class="fa fa-shopping-bag"></i> Entregar
+			</a>
+		}
+		<dl id="espacador"></dl>
+		@if (User.IsInRole("Suporte") || User.IsInRole("AdminCond"))
+		{
+			<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal-default">
+				<i class="fa fa-trash"></i> Excluir
+			</button>
+		}
+		<dl id="espacador"></dl>
+		<a asp-controller="EncRecebidas" asp-action="ListarRecebidas" class="btn btn-light">
+			<i class="fa fa-close"></i> Sair
+		</a>
+	</div>
+
+	<dl id="espacador"></dl>
+
+	<partial name="_ImovelBlocoApto" />
+
+	<dl id="espacador"></dl>
+
+	<partial name="_DetalharRecebida" />
+
+	<div class="modal fade" id="modal-default">
+		<partial name="ExcluirRecebida" />
+	</div>
+</div>

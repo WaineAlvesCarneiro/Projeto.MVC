@@ -1,0 +1,37 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using WebMvc.Condominio.Data
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@model WebMvc.Condominio.Models.Empresa
+@{
+	ViewData["Title"] = "Excluir empresa";
+}
+
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<h4 class="modal-title">@ViewData["Title"]</h4>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+		<div class="modal-body">
+			<p>
+				Tem certeza que deseja excluir o empresa
+				<br />
+				@Html.DisplayNameFor(model => model.Cnpj): @Html.DisplayFor(model => model.Cnpj) ?
+			</p>
+			<div class="row">
+				<form asp-action="ExcluirImovel">
+
+					<div class="modal-footer">
+						<button type="button" class="btn btn-success" data-dismiss="modal">Não</button>
+						<input type="hidden" asp-for="Id" />
+						<button asp-action="ExcluirEmpresa" asp-route-id="@Model.Id" type="submit" class="btn btn-danger pull-left">Sim</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

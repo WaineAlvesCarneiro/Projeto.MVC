@@ -1,0 +1,65 @@
+﻿@model WebMvc.Condominio.Models.ImovelViewModel
+
+<h6 id="divisor">Lista de moradores do imóvel </h6>
+
+<table class="table table-hover">
+	<thead>
+		<tr class="table-success">
+			<th></th>
+			<th>
+				@Html.DisplayNameFor(model => model.Morador.Nome)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Morador.Celular)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Morador.Email)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Morador.Telefone)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Morador.Foto)
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var obj in Model.Moradores)
+		{
+			<tr class="table-active">
+				@if (User.IsInRole("Suporte") || User.IsInRole("AdminCond"))
+				{
+					<td>
+						<a asp-action="ExcluirMorador" title="Excluir Morador" class="btn btn-danger" asp-route-id="@obj.Id">
+							<spam class="fa fa-trash"></spam>
+						</a>
+						@*<button type="button" class="btn btn-danger" title="Excluir Morador" data-toggle="modal" data-target="#modal-default">
+							<spam class="fa fa-trash"></spam>
+							</button>*@
+					</td>
+				}
+				<td>
+					@Html.DisplayFor(modelItem => obj.Nome)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => obj.Celular)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => obj.Email)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => obj.Telefone)
+				</td>
+				<td>
+					<img src="~/Imagens/@obj.Foto" height="200" width="150" asp-append-version="true" />
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
+
+@*<div class="modal fade" id="modal-default">
+
+	<partial name="ExcluirMorador" />
+
+	</div>*@

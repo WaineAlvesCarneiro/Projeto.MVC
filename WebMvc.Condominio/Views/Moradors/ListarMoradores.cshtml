@@ -1,0 +1,88 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using WebMvc.Condominio.Data
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@model IEnumerable<WebMvc.Condominio.Models.Morador>
+
+@{
+	ViewData["Title"] = "Lista moradores";
+}
+
+<div>
+	<form role="search" autocomplete="off">
+		<label>Morador</label>
+		<input autofocus type="text" name="morador" value=@ViewData["morador"] />
+		<label id="espacador"></label>
+		<label>Com data de Saída do imóvel?</label>
+		<label for="saida">
+			@Html.CheckBox("saida", ViewData["comDataSaida"])
+		</label>
+		<label id="espacador"></label>
+		<button type="submit" class="btn btn-primary">Pesquisar</button>
+	</form>
+</div>
+<br />
+
+<table class="table table-hover">
+	<thead>
+		<tr class="table-success">
+			<th>
+				@Html.DisplayNameFor(model => model.Nome)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Celular)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Telefone)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Imovel.BlocoQuadra)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Imovel.AptoLote)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Imovel.DataEntrada)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Imovel.DataSaida)
+			</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr class="table-active">
+				<td>
+					@Html.DisplayFor(modelItem => item.Nome)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Celular)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Telefone)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Imovel.BlocoQuadra)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Imovel.AptoLote)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Imovel.DataEntrada)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Imovel.DataSaida)
+				</td>
+				<td class="text-center">
+					<a asp-controller="Imovels" asp-action="DetalharImovel" title="Detalhar Imóvel" class="btn btn-primary" asp-route-id="@item.ImovelId">
+						<spam class="fa fa-search"></spam>
+					</a>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
+

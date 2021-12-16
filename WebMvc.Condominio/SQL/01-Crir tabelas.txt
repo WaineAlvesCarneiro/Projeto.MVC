@@ -1,0 +1,233 @@
+BEGIN TRANSACTION;
+GO
+
+CREATE TABLE [AspNetRoles] (
+    [Id] varchar(450) NOT NULL,
+    [Name] varchar(256) NULL,
+    [NormalizedName] varchar(256) NULL,
+    [ConcurrencyStamp] varchar(max) NULL,
+    CONSTRAINT [PK_AspNetRoles] PRIMARY KEY ([Id])
+);
+GO
+
+CREATE TABLE [AspNetRoleClaims] (
+    [Id] int NOT NULL IDENTITY,
+    [RoleId] varchar(450) NOT NULL,
+    [ClaimType] varchar(max) NULL,
+    [ClaimValue] varchar(max) NULL,
+    CONSTRAINT [PK_AspNetRoleClaims] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_AspNetRoleClaims_AspNetRoles_RoleId] FOREIGN KEY ([RoleId]) REFERENCES [AspNetRoles] ([Id]) ON DELETE CASCADE
+);
+GO
+CREATE TABLE [Empresa] (
+    [Id] int NOT NULL IDENTITY,
+    [RazaoSocial] varchar(70) NOT NULL,
+    [Fantasia] varchar(50) NOT NULL,
+    [Cnpj] varchar(14) NOT NULL,
+    [Tipo] int NOT NULL,
+    [NomeResposavel] varchar(50) NOT NULL,
+    [Celular] varchar(16) NOT NULL,
+    [Telefone] varchar(16) NULL,
+    [Email] varchar(50) NOT NULL,
+    [Cep] varchar(12) NOT NULL,
+    [Uf] varchar(30) NOT NULL,
+    [Cidade] varchar(50) NOT NULL,
+    [Endereco] varchar(50) NOT NULL,
+    [Complemento] varchar(50) NULL,
+    CONSTRAINT [PK_Empresa] PRIMARY KEY ([Id])
+);
+GO
+
+CREATE TABLE [AspNetUsers] (
+    [Id] varchar(450) NOT NULL,
+    [EmpresaId] int NOT NULL,
+    [UserName] varchar(256) NULL,
+    [NormalizedUserName] varchar(256) NULL,
+    [Email] varchar(256) NULL,
+    [NormalizedEmail] varchar(256) NULL,
+    [EmailConfirmed] bit NOT NULL,
+    [PasswordHash] varchar(max) NULL,
+    [SecurityStamp] varchar(max) NULL,
+    [ConcurrencyStamp] varchar(max) NULL,
+    [PhoneNumber] varchar(max) NULL,
+    [PhoneNumberConfirmed] bit NOT NULL,
+    [TwoFactorEnabled] bit NOT NULL,
+    [LockoutEnd] datetimeoffset NULL,
+    [LockoutEnabled] bit NOT NULL,
+    [AccessFailedCount] int NOT NULL,
+    CONSTRAINT [PK_AspNetUsers] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_AspNetUsers_Empresa_EmpresaId] FOREIGN KEY ([EmpresaId]) REFERENCES [Empresa] ([Id]) ON DELETE CASCADE
+);
+GO
+
+CREATE TABLE [AspNetUserClaims] (
+    [Id] int NOT NULL IDENTITY,
+    [UserId] varchar(450) NOT NULL,
+    [ClaimType] varchar(max) NULL,
+    [ClaimValue] varchar(max) NULL,
+    CONSTRAINT [PK_AspNetUserClaims] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_AspNetUserClaims_AspNetUsers_UserId] FOREIGN KEY ([UserId]) REFERENCES [AspNetUsers] ([Id]) ON DELETE CASCADE
+);
+GO
+
+CREATE TABLE [AspNetUserLogins] (
+    [LoginProvider] varchar(450) NOT NULL,
+    [ProviderKey] varchar(450) NOT NULL,
+    [ProviderDisplayName] varchar(max) NULL,
+    [UserId] varchar(450) NOT NULL,
+    CONSTRAINT [PK_AspNetUserLogins] PRIMARY KEY ([LoginProvider], [ProviderKey]),
+    CONSTRAINT [FK_AspNetUserLogins_AspNetUsers_UserId] FOREIGN KEY ([UserId]) REFERENCES [AspNetUsers] ([Id]) ON DELETE CASCADE
+);
+GO
+
+CREATE TABLE [AspNetUserRoles] (
+    [UserId] varchar(450) NOT NULL,
+    [RoleId] varchar(450) NOT NULL,
+    CONSTRAINT [PK_AspNetUserRoles] PRIMARY KEY ([UserId], [RoleId]),
+    CONSTRAINT [FK_AspNetUserRoles_AspNetRoles_RoleId] FOREIGN KEY ([RoleId]) REFERENCES [AspNetRoles] ([Id]) ON DELETE CASCADE,
+    CONSTRAINT [FK_AspNetUserRoles_AspNetUsers_UserId] FOREIGN KEY ([UserId]) REFERENCES [AspNetUsers] ([Id]) ON DELETE CASCADE
+);
+GO
+
+CREATE TABLE [AspNetUserTokens] (
+    [UserId] varchar(450) NOT NULL,
+    [LoginProvider] varchar(450) NOT NULL,
+    [Name] varchar(450) NOT NULL,
+    [Value] varchar(max) NULL,
+    CONSTRAINT [PK_AspNetUserTokens] PRIMARY KEY ([UserId], [LoginProvider], [Name]),
+    CONSTRAINT [FK_AspNetUserTokens_AspNetUsers_UserId] FOREIGN KEY ([UserId]) REFERENCES [AspNetUsers] ([Id]) ON DELETE CASCADE
+);
+GO
+
+CREATE TABLE [Imovel] (
+    [Id] int NOT NULL IDENTITY,
+    [EmpresaId] int NOT NULL,
+    [BlocoQuadra] varchar(10) NOT NULL,
+    [AptoLote] varchar(10) NOT NULL,
+    [Box] varchar(10) NOT NULL,
+    [Tipo] int NOT NULL,
+    [DataEntrada] datetime2 NOT NULL,
+    [DataSaida] datetime2 NULL,
+    [Marca] varchar(20) NULL,
+    [Modelo] varchar(20) NULL,
+    [Cor] varchar(20) NULL,
+    [Placa] varchar(20) NULL,
+    [ParenteNome] varchar(50) NULL,
+    [ParenteCelular] varchar(16) NULL,
+    [ParenteTelefone] varchar(16) NULL,
+    CONSTRAINT [PK_Imovel] PRIMARY KEY ([Id])
+);
+GO
+
+CREATE TABLE [Morador] (
+    [Id] int NOT NULL IDENTITY,
+    [EmpresaId] int NOT NULL,
+    [ImovelId] int NOT NULL,
+    [Nome] varchar(50) NOT NULL,
+    [Celular] varchar(16) NOT NULL,
+    [Email] varchar(50) NOT NULL,
+    [Telefone] varchar(16) NULL,
+    [Foto] varchar(100) NULL,
+    CONSTRAINT [PK_Morador] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_Morador_Imovel_ImovelId] FOREIGN KEY ([ImovelId]) REFERENCES [Imovel] ([Id]) ON DELETE CASCADE
+);
+GO
+
+CREATE TABLE [Prestador] (
+    [Id] int NOT NULL IDENTITY,
+    [EmpresaId] int NOT NULL,
+    [ImovelId] int NOT NULL,
+    [Nome] varchar(50) NOT NULL,
+    [Documento] varchar(30) NOT NULL,
+    [EmpresaPrestadora] varchar(30) NOT NULL,
+    [DataHoraEntrada] datetime2 NULL,
+    [DataHoraSaida] datetime2 NULL,
+    [Foto] varchar(100) NULL,
+    CONSTRAINT [PK_Prestador] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_Prestador_Imovel_ImovelId] FOREIGN KEY ([ImovelId]) REFERENCES [Imovel] ([Id]) ON DELETE CASCADE
+);
+GO
+
+CREATE TABLE [Visitante] (
+    [Id] int NOT NULL IDENTITY,
+    [EmpresaId] int NOT NULL,
+    [ImovelId] int NOT NULL,
+    [Nome] varchar(50) NOT NULL,
+    [Documento] varchar(30) NOT NULL,
+    [DataEntrada] datetime2 NULL,
+    [DataSaida] datetime2 NULL,
+    [Foto] varchar(100) NULL,
+    CONSTRAINT [PK_Visitante] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_Visitante_Imovel_ImovelId] FOREIGN KEY ([ImovelId]) REFERENCES [Imovel] ([Id]) ON DELETE CASCADE
+);
+GO
+
+CREATE TABLE [EncRecebida] (
+    [Id] int NOT NULL IDENTITY,
+    [EmpresaId] int NOT NULL,
+    [ImovelId] int NOT NULL,
+    [MoradorId] int NOT NULL,
+    [CodigoRastreio] varchar(30) NOT NULL,
+    [TipoEncomenda] varchar(30) NOT NULL,
+    [DataRecebimento] datetime2 NOT NULL,
+    [Entregue_Sim_Nao] varchar(4) NULL,
+    CONSTRAINT [PK_EncRecebida] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_EncRecebida_Imovel_ImovelId] FOREIGN KEY ([ImovelId]) REFERENCES [Imovel] ([Id]) ON DELETE CASCADE
+);
+GO
+
+CREATE TABLE [EncEntrega] (
+    [Id] int NOT NULL IDENTITY,
+    [EmpresaId] int NOT NULL,
+    [ImovelId] int NOT NULL,
+    [EncRecebidaId] int NOT NULL,
+    [MoradorId] int NOT NULL,
+    [DocumentoDoMorador] varchar(30) NOT NULL,
+    [DataEntrega] datetime2 NOT NULL,
+    [Foto] varchar(100) NULL,
+    CONSTRAINT [PK_EncEntrega] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_EncEntrega_Imovel_ImovelId] FOREIGN KEY ([ImovelId]) REFERENCES [Imovel] ([Id]) ON DELETE CASCADE
+);
+GO
+
+CREATE INDEX [IX_AspNetRoleClaims_RoleId] ON [AspNetRoleClaims] ([RoleId]);
+GO
+
+CREATE UNIQUE INDEX [RoleNameIndex] ON [AspNetRoles] ([NormalizedName]) WHERE [NormalizedName] IS NOT NULL;
+GO
+
+CREATE INDEX [IX_AspNetUserClaims_UserId] ON [AspNetUserClaims] ([UserId]);
+GO
+
+CREATE INDEX [IX_AspNetUserLogins_UserId] ON [AspNetUserLogins] ([UserId]);
+GO
+
+CREATE INDEX [IX_AspNetUserRoles_RoleId] ON [AspNetUserRoles] ([RoleId]);
+GO
+
+CREATE INDEX [EmailIndex] ON [AspNetUsers] ([NormalizedEmail]);
+GO
+
+CREATE INDEX [IX_AspNetUsers_EmpresaId] ON [AspNetUsers] ([EmpresaId]);
+GO
+
+CREATE UNIQUE INDEX [UserNameIndex] ON [AspNetUsers] ([NormalizedUserName]) WHERE [NormalizedUserName] IS NOT NULL;
+GO
+
+CREATE INDEX [IX_Morador_ImovelId] ON [Morador] ([ImovelId]);
+GO
+
+CREATE INDEX [IX_Prestador_ImovelId] ON [Prestador] ([ImovelId]);
+GO
+
+CREATE INDEX [IX_Visitante_ImovelId] ON [Visitante] ([ImovelId]);
+GO
+
+CREATE INDEX [IX_EncRecebida_ImovelId] ON [EncRecebida] ([ImovelId]);
+GO
+
+CREATE INDEX [IX_EncEntrega_ImovelId] ON [EncEntrega] ([ImovelId]);
+GO
+
+COMMIT;
+GO
