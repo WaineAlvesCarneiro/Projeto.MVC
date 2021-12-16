@@ -4,8 +4,8 @@
  1. Que permite, cadastrar o imóvel e neste vincular os moradores residente no imóvel com foto.
  2. Possibilita registrar os visitantes vinculando ao imóvel com foto.
  3. Registrar a entrada de prestadores de serviço vinculando ao imóvel com foto.
- 4.1. Receber encomendas na portaria, que fica vinculando ao morador que está na encomenda e ao imóvel.
- 4.2. Entregar a encomenda para o morador que recebeu e incluir a foto deste morador.
+ 4. Receber encomendas na portaria, que fica vinculando ao morador que está na encomenda e ao imóvel.
+ 5. Entregar a encomenda para o morador que recebeu e incluir a foto deste morador.
       
 # WebMvc.OrdemServico
 
